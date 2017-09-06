@@ -1,0 +1,312 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+	<moduleName>Milk Mod Economy</moduleName>
+	<moduleImage path="Fomod\Screens\module.jpg"/>
+	<moduleDependencies>
+		<fileDependency file="Skyrim.esm" state="Active" />
+	</moduleDependencies>
+	<installSteps order="Explicit">	
+		<installStep name="Core Setup">
+			<optionalFileGroups>
+				<group name="CORE group" type="SelectAny">
+					<plugins order="Explicit">
+						<plugin name="CORE">
+							<description>
+								Required files.
+							</description>
+							<image path="Fomod\Screens\MilkLogo.jpg"/>
+							<conditionFlags>
+								<flag name="CoreDefault">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="00_Core" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Required"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>   
+				</group>
+				<group name="MCM Logo" type="SelectExactlyOne">
+					<plugins order="Explicit">
+						<plugin name="Classic">
+							<description>
+								<![CDATA[Black and white]]>
+							</description>
+							<image path="Fomod\Screens\Logo\Classic\MilkLogo.jpg"/>
+							<conditionFlags>
+								<flag name="LogoClassic">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="01_Logo\Classic" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Colour">
+							<description>
+								<![CDATA[RGB by Saeros]]>
+							</description>
+							<image path="Fomod\Screens\Logo\Colour\MilkLogo.jpg"/>
+							<conditionFlags>
+								<flag name="LogoColour">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="01_Logo\Colour" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Colour wBorder">
+							<description>
+								<![CDATA[RGB with white border by Saeros]]>
+							</description>
+							<image path="Fomod\Screens\Logo\ColourBorder\MilkLogo.jpg"/>
+							<conditionFlags>
+								<flag name="LogoColourBorder">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="01_Logo\ColourBorder" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Colour Milk">
+							<description>
+								<![CDATA[RGB with white border by Lizard2010]]>
+							</description>
+							<image path="Fomod\Screens\Logo\ColourMilk\MilkLogo.jpg"/>
+							<conditionFlags>
+								<flag name="LogoColourMilk">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="01_Logo\ColourMilk" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>   
+				</group>
+				<group name="Pre made Milking Cuirass" type="SelectExactlyOne">
+					<plugins order="Explicit">
+						<plugin name="Manga">
+							<description>
+								<![CDATA[Choose this if you want Manga body Milking Cuirass ]]>
+							</description>
+							<image path="Fomod\Screens\MANGA.jpg"/>
+							<conditionFlags>
+								<flag name="Manga">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="02_Cuirass\Manga" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>				
+						</plugin>
+						<plugin name="CBBE">
+							<description>
+								<![CDATA[Choose this if you want CBBE body Milking Cuirass ]]>
+							</description>
+							<image path="Fomod\Screens\CBBE.jpg"/>
+							<conditionFlags>
+								<flag name="CBBE">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="02_Cuirass\CBBE" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>				
+						<plugin name="UUNP">
+							<description>
+								<![CDATA[Choose this if you want UUNP body Milking Cuirass]]>
+							</description>
+							<image path="Fomod\Screens\UUNP.jpg"/>
+							<conditionFlags>
+								<flag name="UUNP">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="02_Cuirass\UUNP" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>				
+						</plugin>
+					</plugins>   
+				</group>
+				<group name="Extra" type="SelectAny">
+					<plugins order="Explicit">			
+						<plugin name="Brown Panty">
+							<description>
+								<![CDATA[Replaces Milkcuirass black&white panies with brown version by Saeros]]>
+							</description>
+							<conditionFlags>
+								<flag name="Brown Panty">Brown Panty</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\Brown Panty" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>				
+						<plugin name="Campfire">
+							<description>
+								<![CDATA[Campfire plugin, allows crafting and placing milkpumps]]>
+							</description>
+							<image path="Fomod\Screens\CF.jpg"/>
+							<conditionFlags>
+								<flag name="Campfire">Campfire</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\Campfire" destination=""/>
+							</files>
+							<typeDescriptor>
+								<dependencyType>
+									<defaultType name="Optional"/>
+									<patterns>
+										<pattern>
+											<dependencies>
+												<fileDependency file="Campfire.esm" state="Active"/>
+											</dependencies>
+											<type name="Recommended"/>
+										</pattern>
+									</patterns>
+								</dependencyType>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Hearthfire">
+							<description>
+								<![CDATA[Hearthfire DLC plugin, adds ability to craft "Jug of Milk" from milk potions at Cooking Pot]]>
+							</description>
+							<conditionFlags>
+								<flag name="Hearthfire">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\Hearthfire" destination=""/>
+							</files>
+							<typeDescriptor>
+								<dependencyType>
+									<defaultType name="Optional"/>
+									<patterns>
+										<pattern>
+											<dependencies>
+												<fileDependency file="HearthFires.esm" state="Active"/>
+											</dependencies>
+											<type name="Recommended"/>
+										</pattern>
+									</patterns>
+								</dependencyType>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Sandbox">
+							<description>
+								<![CDATA[Enables sandbox for milkpumps, any npc can use pumps]]>
+							</description>
+							<conditionFlags>
+								<flag name="Sandbox_Patch">Active</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\Sandbox" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>				
+						</plugin>
+					</plugins>   
+				</group>
+			</optionalFileGroups>
+		</installStep>
+		<installStep name="Milk Pumps Selection">
+			<optionalFileGroups>
+				<group name="MilkPumps" type="SelectExactlyOne">
+					<plugins order="Explicit">
+						<plugin name="None">
+							<description>
+								<![CDATA[No placed milkpumps]]>
+							</description>
+							<image path="Fomod\Screens\MPNO.jpg"/>
+							<conditionFlags>
+								<flag name="MilkumpNone">None</flag>
+							</conditionFlags>
+							<files>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>				
+						</plugin>
+						<plugin name="Basic">
+							<description>
+								<![CDATA[Basic placement of milkpumps, not bound in towns, bound in orc strongholds, will probably conflict with city mods]]>
+							</description>
+							<image path="Fomod\Screens\MPBasic.jpg"/>
+							<conditionFlags>
+								<flag name="MilkumpBasic">Basic</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\MilkPumps Basic" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>				
+						<plugin name="BasicNB">
+							<description>
+								<![CDATA[Basic placement of milkpumps, all pumps are not bound, will probably conflict with city mods]]>
+							</description>
+							<image path="Fomod\Screens\MPBasic.jpg"/>
+							<conditionFlags>
+								<flag name="MilkumpBasicNB">Basic not bound</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\MilkPumps Basic NB" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>				
+						<plugin name="BasicB">
+							<description>
+								<![CDATA[Basic placement of milkpumps, all pumps are bound, will probably conflict with city mods]]>
+							</description>
+							<image path="Fomod\Screens\MPBasic.jpg"/>
+							<conditionFlags>
+								<flag name="MilkumpBasicB">Basic bound</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\MilkPumps Basic B" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>				
+					</plugins>   
+				</group>
+			</optionalFileGroups>
+		</installStep>
+		<installStep name="Plugins integration">
+			<optionalFileGroups>
+				<group name="0 Read me" type="SelectAny">
+					<plugins order="Explicit">			
+						<plugin name="Read me">
+							<description>
+								<![CDATA[Installing plugin scripts for optional mods. Installing scripts without mod may lead to mod conflicts and mods not working.]]>
+							</description>
+							<conditionFlags>
+								<flag name="Read me"></flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Required"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
+			</optionalFileGroups>
+		</installStep>
+	</installSteps>
+</config>		
