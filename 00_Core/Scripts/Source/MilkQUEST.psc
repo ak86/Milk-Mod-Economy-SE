@@ -862,7 +862,7 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 		cumcount = bottles/4
 		
 		if bottles > 0
-			if IsMilkMaid == true
+			if IsMilkMaid == true || PlayerREF == akActor
 				LevelCheck()
 				PostMilk(akActor)
 				AddMilkFx(akActor, 2)
@@ -880,8 +880,8 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 			endif
 		endif
 		
-		if cumcount > 0 && PlayerREF == akActor
-			if IsMilkMaid == true
+		if cumcount > 0
+			if IsMilkMaid == true || PlayerREF == akActor
 				if Mode == 0 || Mode == 2
 					if akActorGender == "Male" 
 						PlayerREF.AddItem(MME_Cums.GetAt(1), cumcount)
@@ -1284,11 +1284,11 @@ Function VarSetup()
 	DisableSkoomaLactacid = False
 	DialogueForceMilkSlave = False
 	BreastScale = 0							;scaling is enabled
-	BellyScale = true						;scaling is enabled
+	BellyScale = False						;scaling is enabled
 	BreastScaleLimit = False				;limit to BoobMAX
 	BreastUpScale = False	;scale to 1
 	MaleMaids = False
-	MilkQC.Buffs = True
+	MilkQC.Buffs = False
 	MilkQC.ExhaustionMode = 0
 	MilkQC.BrestEnlargement_MultiBreast_Effect = 5
 	MilkQC.Debug_enabled = 0
@@ -1314,23 +1314,23 @@ Function VarSetup()
 	MilkStory = True
 	MilkLeakTextures = True
 	MilkLeakToggle = True
-	MilkLeakWearArm = False
+	MilkLeakWearArm = True
 	MilkSuccubusTransform = False
 	MilkVampireTransform = False
 	MilkWerewolfTransform = False
 	MilkWithZaZMoMSuctionCups = False
 	MilkingDrainsSP = True
 	MilkingDrainsMP = True
-	PainSystem = True
-	PainKills = True
+	PainSystem = False
+	PainKills = False
 	WeightUpScale = False					;scale to 100
 	PlayerCantBeMilkmaid = False
 	ZazPumps = True
 	UseFutaMilkCuirass = False
 	FreeLactacid = False
 	
-	ECTrigger = True
-	ECCrowdControl = True
+	ECTrigger = False
+	ECCrowdControl = False
 	ECRange = 500
 
 	NotificationKey = 10

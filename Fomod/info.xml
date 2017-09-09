@@ -1,15 +1,29 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>01-09-2017</Version>
+  <Version>09-09-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/1382-milk-mod-economy/</Website>
   <Description>
   
+Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
+
+Install mod, run fnis, run game, save, load save.
+
+use milkpumps or spells to milk
+NPC MILKING may break npcs, so its disabled by default
+to enable NPC milking use console 
+set MME_NPCMilking to 1
+
+
+  
 Dev change log:
+
+	v 09-09-2017
+fixed esp(missing milking cups and who knows what else), stupid NMM with its virtual installs
+enabled leaking textures and particle effects
 
 	v 06-09-2017
 drank some milk, resurrected mod
-
 removed ineed
 cleaned scripts of all skse witchery
 removed most of scripts code
