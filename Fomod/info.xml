@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>09-09-2017</Version>
+  <Version>20-09-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/1382-milk-mod-economy/</Website>
   <Description>
@@ -17,6 +17,22 @@ set MME_NPCMilking to 1
 
   
 Dev change log:
+
+	v 20-09-2017
+textures fix for bound milkpumps
+removed crafting of futa cuirass
+removed futa cuirass meshes
+
+	v 14-09-2017
+restored breast potions scripts
+restored dialogues for potions
+
+	v 13-09-2017
+restored lactacid script
+got drunk
+
+	v 11-09-2017
+restored storage script
 
 	v 09-09-2017
 fixed esp(missing milking cups and who knows what else), stupid NMM with its virtual installs
