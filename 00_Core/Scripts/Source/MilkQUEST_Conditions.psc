@@ -32,7 +32,7 @@ Int Property BrestEnlargement_MultiBreast_Effect Auto Conditional
 ;Dialogues
 ;----------------------------------------------------------------------------
 
-Bool Property MME_BreasfeedingAnimationsCheck = False Auto Conditional
+Bool Property MME_BreasfeedingAnimationsCheck = True Auto Conditional
 Bool Property MME_DialogueMilking = True Auto Conditional
 
 Bool Property MME_SubjectMaid Auto Conditional

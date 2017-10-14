@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>22-09-2017</Version>
+  <Version>14-10-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/1382-milk-mod-economy/</Website>
   <Description>
@@ -8,15 +8,47 @@
 Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
 
 Install mod, run fnis, run game, save, load save.
+you may need to use uninstall spell and then toggle(enable) mod spell
 
-use milkpumps or spells to milk
-NPC MILKING may break npcs, so its disabled by default
-to enable NPC milking use console 
+NPC MILKING may break npcs, i hadn't done extensive testing, so its disabled by default
+to enable NPC milking use console:
 set MME_NPCMilking to 1
 
 
   
 Dev change log:
+
+	v 14-10-2017
+removed manga body cuirass
+moved unp/cbbe bodies folders
+
+	v 13-10-2017
+disabled breast potions
+
+	v 11-10-2017
+some fixes
+test skse
+
+	v 10-10-2017
+added orgasm sounds
+
+	v 09-10-2017
+restored dialogues for maid milking, since there is no sexlab for SE, initiate self milking
+added moans to milking/ lactacid
+set followers/maids fixed milk production 0.33 per hour
+reduced milking duration  20->5 sec
+added stripping for mobile milking
+added Setunconscious() to prevent npc moving during milking
+
+	v 06-10-2017
+something i forgot =)
+
+	v 03-10-2017
+buffs/debuffs
+enabled maidlvlcap
+
+	v 30-09-2017
+re-added levelling
 
 	v 22-09-2017
 replaced esp futa meshes with normal female armor

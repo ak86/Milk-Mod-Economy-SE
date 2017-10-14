@@ -16,9 +16,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	if !PlayerRef.HasSpell( MilkQ.MilkTarget )
 		PlayerRef.AddSpell( MilkQ.MilkTarget, false )
 	endif
-;	if !PlayerRef.HasSpell( MilkQ.MME_ResetMaids )
-;		PlayerRef.AddSpell( MilkQ.MME_ResetMaids, false )
-;	endif
+	if !PlayerRef.HasSpell( MilkQ.MME_ResetMaids )
+		PlayerRef.AddSpell( MilkQ.MME_ResetMaids, false )
+	endif
 	if !PlayerRef.HasSpell( MilkQ.MME_ResetMod )
 		PlayerRef.AddSpell( MilkQ.MME_ResetMod, false )
 	endif

@@ -92,21 +92,6 @@
 				</group>
 				<group name="Pre made Milking Cuirass" type="SelectExactlyOne">
 					<plugins order="Explicit">
-						<plugin name="Manga">
-							<description>
-								<![CDATA[Choose this if you want Manga body Milking Cuirass ]]>
-							</description>
-							<image path="Fomod\Screens\MANGA.jpg"/>
-							<conditionFlags>
-								<flag name="Manga">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="02_Cuirass\Manga" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>				
-						</plugin>
 						<plugin name="CBBE">
 							<description>
 								<![CDATA[Choose this if you want CBBE body Milking Cuirass ]]>
@@ -122,16 +107,16 @@
 								<type name="Optional"/>
 							</typeDescriptor>
 						</plugin>				
-						<plugin name="UUNP">
+						<plugin name="UNP">
 							<description>
 								<![CDATA[Choose this if you want UUNP body Milking Cuirass]]>
 							</description>
-							<image path="Fomod\Screens\UUNP.jpg"/>
+							<image path="Fomod\Screens\UNP.jpg"/>
 							<conditionFlags>
 								<flag name="UUNP">Active</flag>
 							</conditionFlags>
 							<files>
-								<folder source="02_Cuirass\UUNP" destination=""/>
+								<folder source="02_Cuirass\UNP" destination=""/>
 							</files>
 							<typeDescriptor>
 								<type name="Optional"/>

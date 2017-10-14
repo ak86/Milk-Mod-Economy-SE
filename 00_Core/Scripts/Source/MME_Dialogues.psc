@@ -49,7 +49,8 @@ MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 
 ;checks pc milk
 	if Game.Getplayer().GetLeveledActorBase().GetSex() == 1 || (Game.Getplayer().GetLeveledActorBase().GetSex() == 0 && MilkQ.MaleMaids)
-		;MilkQ.MilkQC.MME_TargetMilk = MME_Storage.getMilkCurrent(Game.Getplayer())
+		MME_ActorAlias ActorAlias = MilkQ.GetAlias(MilkQ.MILKmaid.find(Game.Getplayer())) as MME_ActorAlias
+		MilkQ.MilkQC.MME_TargetMilk = MME_Storage.getMilkCurrent(ActorAlias)
 	endif
 
 	if akSpeaker.GetLeveledActorBase().GetSex() == 1 || (akSpeaker.GetLeveledActorBase().GetSex() == 0 && MilkQ.MaleMaids)
@@ -79,7 +80,7 @@ MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 					i = i + 1
 				EndWhile
 				If MilkQ.MILKmaid.Find(none,1) != -1 || count == 0
-					MilkQ.MilkQC.MME_CanbeconvertedfromSlaveToMaid = 1
+					;MilkQ.MilkQC.MME_CanbeconvertedfromSlaveToMaid = 1
 				Endif
 			endif
 
@@ -87,31 +88,49 @@ MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 			if MilkQ.MilkMaid.Find(akSpeaker) != -1
 				MilkQ.MilkQC.MME_SubjectMaid = true
 				If MilkQ.MILKSlave.Find(none,1) != -1
-					MilkQ.MilkQC.MME_CanBeConvertedFromMaidToSlave = 1
+					;MilkQ.MilkQC.MME_CanBeConvertedFromMaidToSlave = 1
 				Endif
 			endif
 		endif
 
 ;checks npc milk
-		;MilkQ.MilkQC.MME_SubjectMilk = MME_Storage.getMilkCurrent(akSpeaker)
-		
-		if MilkQ.IsNamedMaid(akSpeaker) != 0 && MilkQ.MilkQC.MME_SubjectMilk == 0
+		if MilkQ.MILKmaid.find(akSpeaker) != -1
+			MME_ActorAlias ActorAlias = MilkQ.GetAlias(MilkQ.MILKmaid.find(akSpeaker)) as MME_ActorAlias
+			MilkQ.MilkQC.MME_SubjectMilk = MME_Storage.getMilkCurrent(ActorAlias)
+
+			float LactCnt = MME_Storage.getLactacidCurrent(ActorAlias)
+			float MilkCnt = MME_Storage.getMilkCurrent(ActorAlias)
+			float PainCnt = MME_Storage.getPainCurrent(ActorAlias)
+			float PainMax = MME_Storage.getPainMaximum(ActorAlias)
+			String msg = ""
+			msg = msg + ("Maid lvl[" + ActorAlias.getlevel() as int + "]"\
+							+ " Lactacid: " + LactCnt\
+							+ " Milk: " + MilkCnt\
+							+ " Pain: " + (PainCnt/PainMax*100) as int + "%")
+			Debug.Notification(msg)
+
+		elseif MilkQ.MILKSlave.find(akSpeaker) != -1
+			MME_ActorAlias ActorAlias = MilkQ.GetAlias(MilkQ.MILKSlave.find(akSpeaker)) as MME_ActorAlias
+			MilkQ.MilkQC.MME_SubjectMilk = MME_Storage.getMilkCurrent(ActorAlias)
+		elseif MilkQ.IsNamedMaid(akSpeaker) != 0 && MilkQ.MilkQC.MME_SubjectMilk == 0
 			MilkQ.MilkQC.MME_SubjectMilk = Utility.RandomInt(4)
 		endif
+		MilkQ.MilkQC.MME_BreasfeedingAnimationsCheck = true 
 	endif
 EndFunction
 
 Function Fragment_01(ObjectReference akSpeakerRef)
-	Actor akSpeaker = akSpeakerRef as Actor
 	Init_Milking(akSpeakerRef as actor, Game.Getplayer())
 EndFunction
 
 Function Fragment_02(ObjectReference akSpeakerRef)
-	Actor akSpeaker = akSpeakerRef as Actor
 	Init_Milking(Game.Getplayer(), akSpeakerRef as actor)
 EndFunction
 
 Function Init_Milking(Actor akActor1, Actor akActor2)
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQ.MilkSelf.cast(akActor1)
+	;sexlab animation start
 EndFunction
 
 Function Fragment_03(ObjectReference akSpeakerRef)
@@ -161,14 +180,16 @@ EndFunction
 
 Function Fragment_09(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-	;disabled in SSE
+	;breast potion
+	Debug.Notification("breast potion disabled")
 	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(1), 1)
 	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction
 
 Function Fragment_10(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-	;disabled in SSE
+	;breast potion
+	Debug.Notification("breast potion disabled")
 	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(2), 1)
 	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction
@@ -202,16 +223,16 @@ EndFunction
 
 Function Fragment_12(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-	;disabled in SSE
-	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(0), 1)
-	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 100, true)
+	;lactacid
+	Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(0), 1)
+	Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 100, true)
 EndFunction
 
 Function Fragment_13(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-	;disabled in SSE
-	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(0), 1)
-	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 100, true)
+	;lactacid
+	Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(0), 1)
+	Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 100, true)
 EndFunction
 
 Function Fragment_14(ObjectReference akSpeakerRef)

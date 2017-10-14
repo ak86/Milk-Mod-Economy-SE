@@ -23,6 +23,29 @@ Event OnPlayerLoadGame()
 	Maintenance()
 EndEvent
 
+Event OnSleepStop(bool abInterrupted)
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	Int i = 0
+	
+	MME_ActorAlias ActorAlias = MilkQ.GetAlias(0) as MME_ActorAlias
+	while i < MilkQ.MILKmaid.length
+		if MilkQ.MILKmaid[i] != none
+			ActorAlias = MilkQ.GetAlias(i) as MME_ActorAlias
+			float BreastRowsAdjust = ActorAlias.getBreastRowsAdjust()
+;			Debug.Notification("PLG1 " +BreastRowsAdjust)
+			if BreastRowsAdjust != 0
+				float BreastRows = MME_Storage.getBreastRows(ActorAlias)
+;				Debug.Notification("PLG2 " + BreastRows)
+				MME_Storage.setBreastRows(ActorAlias, BreastRows + BreastRowsAdjust)
+				MilkQ.MultibreastChange(MilkQ.MILKmaid[i])
+				ActorAlias.setBreastRowsAdjust(0) 						;reset
+			endif
+		endif
+		i += 1
+	endWhile
+	self.RegisterForSleep()
+endEvent
+
 Function Maintenance()
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 
@@ -32,5 +55,6 @@ Function Maintenance()
 	MilkQ.DLCcheck()
 	MilkQ.Strings_setup()	;rem
 	
+	self.RegisterForSleep()
 	Debug.Trace("MilkModEconomy maintenance done")
 EndFunction
