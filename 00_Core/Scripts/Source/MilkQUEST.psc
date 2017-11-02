@@ -2,6 +2,7 @@ Scriptname MilkQUEST extends Quest
 {Core MME script}
 
 MilkECON Property MilkE Auto 
+MME_SKSE Property MME_SE Auto 
 MilkQUEST_Conditions Property MilkQC Auto
 CompanionsHousekeepingScript Property CHScript Auto 
 PlayerVampireQuestScript Property PlayerVampireQuest Auto 
@@ -124,6 +125,7 @@ Bool Property UseFutaMilkCuirass = False Auto
 Bool Property FreeLactacid = False Auto
 Bool Property BellyScale = True Auto
 Bool Property MaleMaids = False Auto
+Bool Property ArmorStrippingDisabled = False Auto
 
 Int Property BreastScale = 0 Auto
 Int Property TimesMilkedMult Auto
@@ -190,8 +192,10 @@ Int Property HotKeyMode Auto
 ;This script only variables
 Actor crosshairRef = None
 
-Float ProgressionLevel = 0.0
-Float ProgressionTimesMilked = 0.0
+Float Property ProgressionLevel = 0.0 Auto
+Float Property ProgressionTimesMilked = 0.0 Auto
+Float Property ProgressionTimesMilkedAll = 0.0 Auto
+Float Property LactacidMod = 10.0 Auto
 
 ;DLC's
 Bool Property Plugin_HearthFires = false auto
@@ -366,6 +370,10 @@ Event OnKeyUp(Int KeyCode, Float HoldTime)
 EndEvent
 
 Event OnCrosshairRefChange(ObjectReference ref)
+	crosshairRef = none
+	If ref != none
+		crosshairRef = ref as Actor
+	EndIf
 EndEvent
 
 ;----------------------------------------------------------------------------
@@ -442,7 +450,6 @@ Function MilkCycle(Actor akActor, int t)
 	Float BoobTick
 	MME_ActorAlias ActorAlias = self.GetAlias(MILKmaid.find(akActor)) as MME_ActorAlias
 	
-	Float LactacidMod = 10
 	Float LactacidCnt = MME_Storage.getLactacidCurrent(ActorAlias)
 	Float MaidMilkGen = ActorAlias.getMilkGen()
 	Float BreastBase = MME_Storage.getBreastsBasevalue(ActorAlias)
@@ -697,8 +704,8 @@ EndFunction
 Function CurrentSize(Actor akActor)
 	MME_ActorAlias ActorAlias = self.GetAlias(MILKmaid.find(akActor)) as MME_ActorAlias
 	Float BreastBase = MME_Storage.getBreastsBasevalue(ActorAlias)
-	Float MaidBoobIncr = -1			;fetch individual maid data
-	Float MaidBoobPerLvl = -1		;fetch individual maid data
+	Float MaidBoobIncr = ActorAlias.getBoobIncr()			;fetch individual maid data
+	Float MaidBoobPerLvl = ActorAlias.getBoobPerLvl()		;fetch individual maid data
 	Float BreastBaseMod = MME_Storage.getBreastsBaseadjust(ActorAlias)
 	Float MilkCnt = MME_Storage.getMilkCurrent(ActorAlias)
 	Float MaidLevel = MME_Storage.getMaidLevel(ActorAlias)
@@ -737,6 +744,7 @@ Function CurrentSize(Actor akActor)
 			CurrentSize = BoobMAX
 		endif
 		
+		debug.notification("CurrentSize2 to " + CurrentSize)
 		If(CurrentSize <= 1)
 			CurveFix = 1.0
 		Else
@@ -746,7 +754,6 @@ Function CurrentSize(Actor akActor)
 			EndIf
 		EndIf
 	Endif
-	
 	if akActor.GetLeveledActorBase().GetSex() == 1
 		MME_BodyMod BodyMod = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MME_BodyMod
 		
@@ -807,7 +814,7 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 	
 	if akActor.HasSpell( BeingMilkedPassive )
 		;if MilkingType != 1						;prevents msg spam from aidrivenplayer bound milkpump, since its activates script endlessly,
-			;Debug.notification("Actor already being milked, if something went wrong, remove Milking passive spell from Milk Maid debug menu")
+			Debug.notification(MME_SE.getActorName(akActor) + " already being milked, if something went wrong, remove Milking passive spell from Milk Maid debug menu")
 		;endif
 		return									; prevents multiple scripts running
 	endif
@@ -1398,51 +1405,7 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 EndFunction
 
 Function PostMilk(Actor akActor)
-	MME_ActorAlias ActorAlias = self.GetAlias(MILKmaid.find(akActor)) as MME_ActorAlias
-	Float MilkCnt = MME_Storage.getMilkCurrent(ActorAlias)
-	Float MilkMax = MME_Storage.getMilkMaximum(ActorAlias)
-	Int   MaidBuffLevel = MME_Storage.getMaidLevel(ActorAlias) as int
-
-	if MilkQC.Buffs != true 
-		;MilkExhaustion
-		if akActor.HasSpell(MME_Spells_Buffs.GetAt(3) as Spell)
-			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(3) as Spell)
-		endif
-		;MilkMentalExhaustion
-		if akActor.HasSpell(MME_Spells_Buffs.GetAt(4) as Spell)
-			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(4) as Spell)
-		endif
-	endif
-	
-	int b = 1
-	while b <= 25
-		if akActor.HasSpell(UnmilkedSpells.GetAt(b) as Spell)
-			akActor.RemoveSpell(UnmilkedSpells.GetAt(b) as Spell)
-		endif
-		if MilkCnt / MilkMax > 0.4 && akActor.HasSpell(WellMilkedSpells.GetAt(b) as Spell)
-			akActor.RemoveSpell(WellMilkedSpells.GetAt(b) as Spell)
-		Endif
-		b += 1
-	endwhile
-
-	if MilkQC.Buffs
-		if MilkCnt / MilkMax <= 0.4
-			if MaidBuffLevel > 25
-				MaidBuffLevel = 25
-			endif
-			akActor.AddSpell(WellMilkedSpells.GetAt(MaidBuffLevel) as Spell, false)
-		elseif MilkCnt / MilkMax >= 0.6
-			int min = Math.Ceiling(MilkMax*0.6)												;ie lv10 cei(14.4) = 14 lv1 cei(3.6) = 4
-			int diff = (MilkCnt - min) as int 												;if its = 0 it means its first tick above 0.6
-			if diff > 25
-				diff = 25
-			endif
-			akActor.AddSpell(UnmilkedSpells.GetAt(diff) as Spell, false)
-			if akActor == Game.Getplayer() && MilkMsgs
-				debug.Notification("Your breasts are getting heavy from all the milk sloshing inside.")
-			endif	
-		endif	
-	endif	
+	MME_SE.PostmilkDebuff(akActor)
 EndFunction
 
 Function LevelCheck()
@@ -1472,7 +1435,7 @@ Function MaidLevelCheck(Actor akActor)
 				MME_Storage.setMaidLevel(ActorAlias, MaidLevel + 1)
 				ActorAlias.setTimesMilked(ActorAlias.getTimesMilked() - (MaidLevel + 1) * TimesMilkedMult)
 				if MilkMsgs && MaidLevel + 1 <= MilkLvlCap
-					debug.Notification("Milkmaid has gained a level!")
+					debug.Notification(MME_SE.getActorName(akActor) + " has gained a Milk maid level!")
 					MilkMsgHyper((MaidLevel + 1) as int, akActor)
 				endif
 			endif
@@ -1491,7 +1454,7 @@ Function MilkCycleMSG(Actor akActor)
 	Float MilkMax = MME_Storage.getMilkMaximum(ActorAlias)
 	String name = "Yours"
 	if PlayerREF != akActor
-		name = "Maids"
+		name = MME_SE.getActorName(akActor)
 	endif
 
 	If PlayerREF.GetDistance(akActor) < 500 && (MilkCnt as int) >= 1
@@ -1561,19 +1524,35 @@ Function Strings_setup()
 EndFunction
 
 Function MilkMsgHyper(int t, Actor akActor)
-	if PlayerRef == akActor
-		MilkMsgHyper = new String[11]
-		MilkMsgHyper[1] = "As a result of a series of repeated vigorous milkings, my breasts have grown accustomed to the great demand for their precious nectar and have grown bigger in size increasing their capacity! \n [Milk Maid Level: 1]"
-		MilkMsgHyper[2] = "Due to repeated vigorous milkings, my beautiful boobs are adjusting to the great demand for their precious nectar and have grown bigger in size increasing their capacity even further! \n [Milk Maid Level: 2]"
-		MilkMsgHyper[3] = "The repeated vigorous milkings are conditioning my glorious globes to meet the great demand for their precious nectar. They have grown bigger in size increasing their already impressive capacity even further! \n [Milk Maid Level: 3]"
-		MilkMsgHyper[4] = "Repeated vigorous milkings have trained my marvellous milk melons to meet the great demand for their precious nectar. They have grown bigger in size increasing their already amazing capacity even further! \n [Milk Maid Level: 4]"
-		MilkMsgHyper[5] = "I'm looking forward to these vigorous milkings. MY breasts have grown accustomed to the great demand for their luscious lactation and have grown bigger in size increasing their inhuman capacity even further! \n [Milk Maid Level: 5]"
-		MilkMsgHyper[6] = "My already ample breasts are adjusting to the demand for their precious nectar due to the repeated vigorous milkings. They have grown in size and capacity again! I enjoy being milked! \n [Milk Maid Level: 6]"
-		MilkMsgHyper[7] = "Due to the regular, vigorous milkings, my breasts have grown even larger and their capacity has increased. Their now bountiful breasts will work to meet the demand for their tasty milk. \n [Milk Maid Level: 7]"
-		MilkMsgHyper[8] = "I enjoy repeated and vigorous milking. my breasts continue to grow to meet the demand for their rich nectar. My now Gigantic Jugs can supply more milk and she enjoys it when people notice her breast size! \n [Milk Maid Level: 8]"
-		MilkMsgHyper[9] = "These regular, vigorous milking sessions turn your milkmaid's on! They now have Tremendous Tits with increased size and capacity. Their delicious milk is in demand and they feel sexy when they hear comments about their boobs. \n [Milk Maid Level: 9]"
-		MilkMsgHyper[10] = "I'm is now a Master of the Milkmaids with MASSIVE Mammaries! She can supply more milk than an entire herd of cows. And those tits of theirs are the talk of Tamriel. \n [Master Milk Maid]"
-		debug.messagebox(MilkMsgHyper[t])
+	string Name = MME_SE.getActorName(akActor)
+	if Name == "Maid"	;no SKSE
+		if PlayerRef == akActor
+			MilkMsgHyper = new String[11]
+			MilkMsgHyper[1] = "As a result of a series of repeated vigorous milkings, my breasts have grown accustomed to the great demand for their precious nectar and have grown bigger in size increasing their capacity! \n [Milk Maid Level: 1]"
+			MilkMsgHyper[2] = "Due to repeated vigorous milkings, my beautiful boobs are adjusting to the great demand for their precious nectar and have grown bigger in size increasing their capacity even further! \n [Milk Maid Level: 2]"
+			MilkMsgHyper[3] = "The repeated vigorous milkings are conditioning my glorious globes to meet the great demand for their precious nectar. They have grown bigger in size increasing their already impressive capacity even further! \n [Milk Maid Level: 3]"
+			MilkMsgHyper[4] = "Repeated vigorous milkings have trained my marvellous milk melons to meet the great demand for their precious nectar. They have grown bigger in size increasing their already amazing capacity even further! \n [Milk Maid Level: 4]"
+			MilkMsgHyper[5] = "I'm looking forward to these vigorous milkings. MY breasts have grown accustomed to the great demand for their luscious lactation and have grown bigger in size increasing their inhuman capacity even further! \n [Milk Maid Level: 5]"
+			MilkMsgHyper[6] = "My already ample breasts are adjusting to the demand for their precious nectar due to the repeated vigorous milkings. They have grown in size and capacity again! I enjoy being milked! \n [Milk Maid Level: 6]"
+			MilkMsgHyper[7] = "Due to the regular, vigorous milkings, my breasts have grown even larger and their capacity has increased. Their now bountiful breasts will work to meet the demand for their tasty milk. \n [Milk Maid Level: 7]"
+			MilkMsgHyper[8] = "I enjoy repeated and vigorous milking. my breasts continue to grow to meet the demand for their rich nectar. My now Gigantic Jugs can supply more milk and she enjoys it when people notice her breast size! \n [Milk Maid Level: 8]"
+			MilkMsgHyper[9] = "These regular, vigorous milking sessions turn your milkmaid's on! They now have Tremendous Tits with increased size and capacity. Their delicious milk is in demand and they feel sexy when they hear comments about their boobs. \n [Milk Maid Level: 9]"
+			MilkMsgHyper[10] = "I'm is now a Master of the Milkmaids with MASSIVE Mammaries! I can supply more milk than an entire herd of cows. And those tits of mine are the talk of Tamriel. \n [Master Milk Maid]"
+			debug.messagebox(MilkMsgHyper[t])
+		endif
+	else	;SKSE akActor.GetLeveledActorBase().GetName()
+			MilkMsgHyper = new String[11]
+			MilkMsgHyper[1] = "As a result of a series of repeated vigorous milkings, " + Name + "'s breasts have grown accustomed to the great demand for their precious nectar and have grown bigger in size increasing their capacity! \n [Milk Maid Level: 1]"
+			MilkMsgHyper[2] = "Due to repeated vigorous milkings, " + Name + "'s beautiful boobs are adjusting to the great demand for their precious nectar and have grown bigger in size increasing their capacity even further! \n [Milk Maid Level: 2]"
+			MilkMsgHyper[3] = "The repeated vigorous milkings are conditioning " + Name + "'s glorious globes to meet the great demand for their precious nectar. They have grown bigger in size increasing their already impressive capacity even further! \n [Milk Maid Level: 3]"
+			MilkMsgHyper[4] = "Repeated vigorous milkings have trained " + Name + "'s marvellous milk melons to meet the great demand for their precious nectar. They have grown bigger in size increasing their already amazing capacity even further! \n [Milk Maid Level: 4]"
+			MilkMsgHyper[5] = Name + "'s looking forward to these vigorous milkings. Her breasts have grown accustomed to the great demand for their luscious lactation and have grown bigger in size increasing their inhuman capacity even further! \n [Milk Maid Level: 5]"
+			MilkMsgHyper[6] = Name + "'s already ample breasts are adjusting to the demand for their precious nectar due to the repeated vigorous milkings. They have grown in size and capacity again! " + Name + " enjoys being milked! \n [Milk Maid Level: 6]"
+			MilkMsgHyper[7] = "Due to the regular, vigorous milkings, " + Name + "'s breasts have grown even larger and their capacity has increased. Their now bountiful breasts will work to meet the demand for their tasty milk. \n [Milk Maid Level: 7]"
+			MilkMsgHyper[8] = Name + " enjoys the repeated and vigorous milking. her breasts continue to grow to meet the demand for their rich nectar. Her now Gigantic Jugs can supply more milk and she enjoys it when people notice her breast size! \n [Milk Maid Level: 8]"
+			MilkMsgHyper[9] = "These regular, vigorous milking sessions turn your milkmaid's on! They now have Tremendous Tits with increased size and capacity. Their delicious milk is in demand and they feel sexy when they hear comments about their boobs. \n [Milk Maid Level: 9]"
+			MilkMsgHyper[10] = Name + " is now a Master of the Milkmaids with MASSIVE Mammaries! She can supply more milk than an entire herd of cows. And those tits of theirs are the talk of Tamriel. \n [Master Milk Maid]"
+			debug.messagebox(MilkMsgHyper[t])
 	endif
 EndFunction
 
@@ -1582,49 +1561,49 @@ EndFunction
 ;----------------------------------------------------------------------------
 
 Function StoryDisplay(int StoryState , int StoryMode, bool FirstTimeStory)
-;StoryState == 0 - start, 1 - end
-int i
+	;StoryState == 0 - start, 1 - end
+	int i
 
-if FirstTimeStory
-	i = 0
-else
-	i = 1
-endif
+	if FirstTimeStory
+		i = 0
+	else
+		i = 1
+	endif
 
-if StoryMode == 1					;Milkpump milking
-	i = Utility.RandomInt(1, 5) * i
-	If StoryState == 0
-		StoryMPS(i)
-	Elseif StoryState == 1
-		StoryMPE(i)
-	EndIf
-	
-Elseif StoryMode == 2 				;Spriggan milking
-	i = Utility.RandomInt(1, 3)
-	If StoryState == 0
-		StorySS(i)
-	Elseif StoryState == 1
-		StorySE(i)
-	EndIf
-	
-Elseif StoryMode == 3				;Hermaeus Mora milking
-	i = Utility.RandomInt(1, 2)
-	If StoryState == 0
-		StoryHMS(i)
-	Elseif StoryState == 1
-		StoryHME(i)
-	EndIf
-	
-Elseif StoryMode == 4				;Living armor milking
-	i = Utility.RandomInt(1, 3)
-	If StoryState == 0
-		StoryLAS(i)
-	Elseif StoryState == 1
-		StoryLAE(i)
-	EndIf
-endif
+	if StoryMode == 1					;Milkpump milking
+		i = Utility.RandomInt(1, 5) * i
+		If StoryState == 0
+			StoryMPS(i)
+		Elseif StoryState == 1
+			StoryMPE(i)
+		EndIf
+		
+	Elseif StoryMode == 2 				;Spriggan milking
+		i = Utility.RandomInt(1, 3)
+		If StoryState == 0
+			StorySS(i)
+		Elseif StoryState == 1
+			StorySE(i)
+		EndIf
+		
+	Elseif StoryMode == 3				;Hermaeus Mora milking
+		i = Utility.RandomInt(1, 2)
+		If StoryState == 0
+			StoryHMS(i)
+		Elseif StoryState == 1
+			StoryHME(i)
+		EndIf
+		
+	Elseif StoryMode == 4				;Living armor milking
+		i = Utility.RandomInt(1, 3)
+		If StoryState == 0
+			StoryLAS(i)
+		Elseif StoryState == 1
+			StoryLAE(i)
+		EndIf
+	endif
 
-debug.messagebox(Story[i])
+	debug.messagebox(Story[i])
 EndFunction
 
 Function StoryMPS(int i)
@@ -1796,17 +1775,19 @@ int Function Milklvl0fix()
 	;Debug.notification(milklvl) 		;0.5 => int 0
 	If milklvl < 1
 		return 1
+	ElseIf milklvl > MilkMaid.Length
+		return MilkMaid.Length
 	Else
 		return milklvl
 	EndIf
 EndFunction
 
 string Function ReduceFloat(String ReduceFloat)
-	string temp = ""
-	return ReduceFloat
+	return MME_SE.ReduceFloat(ReduceFloat)
 EndFunction
 
 Function MMEfoodlistaddon()
+	MME_SE.MMEfoodlistaddon()
 EndFunction
 
 Function SlSWfoodlistaddon()
@@ -1824,8 +1805,8 @@ Function Milkmaidinfo()
 			float MilkCnt = MME_Storage.getMilkCurrent(ActorAlias)
 			float PainCnt = MME_Storage.getPainCurrent(ActorAlias)
 			float PainMax = MME_Storage.getPainMaximum(ActorAlias)
-			msg = msg + ("Maid [" + i + "]"\
-							+ " Lactacid: " + LactCnt\
+			msg = msg + (MME_SE.getActorName(MilkMaid[i]) + " [" + i + "]"\
+							+ " Lactacid: " + ReduceFloat(LactCnt)\
 							+ " Milk: " + ReduceFloat(MilkCnt)\
 							+ " Pain: " + (PainCnt/PainMax*100) as int + "%\n")
 		endif
@@ -2016,6 +1997,7 @@ Function VarSetup()
 	MilkProdMod = 100
 	MilkPriceMod = 1
 	LactacidDecayRate = 0
+	LactacidMod = 10
 	ExhaustionSleepMod = 0
 	MilkFlag = False 						;polling disabled
 	EconFlag = False 						;8h polling disabled
@@ -2040,6 +2022,7 @@ Function VarSetup()
 	ZazPumps = True
 	UseFutaMilkCuirass = False
 	FreeLactacid = False
+	ArmorStrippingDisabled = False
 	
 	ECTrigger = False
 	ECCrowdControl = False
@@ -2127,6 +2110,16 @@ bool Function isSuccubus(Actor akActor)
 EndFunction
 
 bool Function isPregnant(Actor akActor)
+	if akActor.HasSpell( Game.GetFormFromFile(0x1833, "Basic Pregnancy Cycle.esp") as Spell ) ;_JSW_BPC_PregnantSpell
+		Return True
+	endif
+	if akActor.HasSpell( Game.GetFormFromFile(0x28a0, "BeeingFemale.esm") as Spell ) ;_BFStatePregnant spell
+		Return True
+	endif
+	if akActor.isInFaction( Game.GetFormFromFile(0x1101f, "EggFactory.esp") as Faction ) ;EggFactoryActiveFaction
+		Return True
+	endif
+
 	Return False
 EndFunction
 
@@ -2177,7 +2170,7 @@ int Function Pain(Actor akActor, int pain)
 		who = "My"
 		how = "feels"
 	else 
-		who = "Maid"
+		who = MME_SE.getActorName(akActor)
 		how = "looks"
 	endif
 

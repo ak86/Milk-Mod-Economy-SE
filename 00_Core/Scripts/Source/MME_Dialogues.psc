@@ -98,14 +98,15 @@ MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 			MME_ActorAlias ActorAlias = MilkQ.GetAlias(MilkQ.MILKmaid.find(akSpeaker)) as MME_ActorAlias
 			MilkQ.MilkQC.MME_SubjectMilk = MME_Storage.getMilkCurrent(ActorAlias)
 
+;report npc milk
 			float LactCnt = MME_Storage.getLactacidCurrent(ActorAlias)
 			float MilkCnt = MME_Storage.getMilkCurrent(ActorAlias)
 			float PainCnt = MME_Storage.getPainCurrent(ActorAlias)
 			float PainMax = MME_Storage.getPainMaximum(ActorAlias)
 			String msg = ""
-			msg = msg + ("Maid lvl[" + ActorAlias.getlevel() as int + "]"\
-							+ " Lactacid: " + LactCnt\
-							+ " Milk: " + MilkCnt\
+			msg = msg + (MilkQ.MME_SE.getActorName(akSpeaker) + " lvl[" + ActorAlias.getlevel() as int + "]"\
+							+ " Lactacid: " + MilkQ.ReduceFloat(LactCnt)\
+							+ " Milk: " + MilkQ.ReduceFloat(MilkCnt)\
 							+ " Pain: " + (PainCnt/PainMax*100) as int + "%")
 			Debug.Notification(msg)
 
@@ -181,7 +182,7 @@ EndFunction
 Function Fragment_09(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 	;breast potion
-	Debug.Notification("breast potion disabled")
+	Debug.Notification("breast potions disabled")
 	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(1), 1)
 	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction
@@ -189,7 +190,7 @@ EndFunction
 Function Fragment_10(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 	;breast potion
-	Debug.Notification("breast potion disabled")
+	Debug.Notification("breast potions disabled")
 	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(2), 1)
 	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction

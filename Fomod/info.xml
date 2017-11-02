@@ -1,8 +1,8 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>14-10-2017</Version>
+  <Version>01-11-2017</Version>
   <Author>Ed86</Author>
-  <Website>http://www.loverslab.com/files/file/1382-milk-mod-economy/</Website>
+  <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
   
 Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
@@ -17,6 +17,24 @@ set MME_NPCMilking to 1
 
   
 Dev change log:
+
+	v 01-11-2017
+added breast scaling
+probably fixed most of mcm
+
+	v 25-10-2017
+added pregnancy detection for Basic Pregnancy Cycle, EggFactory, BeeingFemale
+
+	v 24-10-2017
+added skse base framework
+added mcm, broken due to lack of translation support
+
+	v 20-10-2017
+ported bodyslide sets, though they seems to get neck gap
+fix not allow "use" of more maid slots than mod actually has
+
+	v 17-10-2017
+fixed esp
 
 	v 14-10-2017
 removed manga body cuirass

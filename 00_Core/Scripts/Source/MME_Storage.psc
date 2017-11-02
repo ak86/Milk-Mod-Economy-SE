@@ -1,16 +1,21 @@
 Scriptname MME_Storage Hidden
 
 function initializeActor(MME_ActorAlias akActor, float Level = 0.0, float MilkCnt = 0.0) global
-akActor.setBreastBase(1)
-akActor.setBreastBaseMod(0)
-akActor.setLevel(Level)
-akActor.setLactacidCount(0)
-akActor.setMilkCount(MilkCnt)
-akActor.setMilkMaximum(4)
-akActor.setMilkMaxBasevalue(2)
-akActor.setMilkMaxScalefactor(1)
-akActor.setBreastRows(1)
-akActor.setBreastRowsAdjust(0)
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+
+	akActor.setBreastBase(1)
+	akActor.setBreastBaseMod(0)
+	akActor.setLevel(Level)
+	akActor.setLactacidCount(0)
+	akActor.setMilkCount(MilkCnt)
+	akActor.setMilkMaximum(4)
+	akActor.setMilkMaxBasevalue(2)
+	akActor.setMilkMaxScalefactor(1)
+	akActor.setBreastRows(1)
+	akActor.setBreastRowsAdjust(0)
+	akActor.setBoobIncr(MilkQ.BoobIncr)
+	akActor.setBoobPerLvl(MilkQ.BoobPerLvl)
+
 endfunction
 
 function deregisterActor(MME_ActorAlias akActor) global
@@ -20,8 +25,8 @@ float function getBreastRows(MME_ActorAlias akActor) global
 	return verifyIntRange("MME_Storage.getBreastRows()", akActor.getBreastRows(), 1, 4)
 endfunction
 
-function setBreastRows(MME_ActorAlias akActor, float Value) global
-	akActor.setBreastRows(verifyIntRange("MME_Storage.setBreastRows()", Value, 1, 4))
+float function setBreastRows(MME_ActorAlias akActor, float Value) global
+	 return akActor.setBreastRows(verifyIntRange("MME_Storage.setBreastRows()", Value, 1, 4))
 endfunction
 
 float function getBreastRowsAdjust(MME_ActorAlias akActor) global

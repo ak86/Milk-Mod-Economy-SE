@@ -109,11 +109,11 @@
 						</plugin>				
 						<plugin name="UNP">
 							<description>
-								<![CDATA[Choose this if you want UUNP body Milking Cuirass]]>
+								<![CDATA[Choose this if you want UNP body Milking Cuirass]]>
 							</description>
 							<image path="Fomod\Screens\UNP.jpg"/>
 							<conditionFlags>
-								<flag name="UUNP">Active</flag>
+								<flag name="UNP">Active</flag>
 							</conditionFlags>
 							<files>
 								<folder source="02_Cuirass\UNP" destination=""/>

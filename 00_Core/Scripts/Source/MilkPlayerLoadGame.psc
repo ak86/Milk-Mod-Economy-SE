@@ -21,7 +21,22 @@ EndEvent
 
 Event OnPlayerLoadGame()
 	Maintenance()
+	UpdateSize()
 EndEvent
+
+Function UpdateSize()
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+
+	if MilkQ.MILKmaid as Bool && MilkQ.MilkFlag && MilkQ.BreastScale == 2
+		Int i = 0
+		while i < MilkQ.MILKmaid.length
+			if MilkQ.MILKmaid[i] != none && MilkQ.MILKmaid[i].IsInLocation(MilkQ.PlayerREF.getCurrentLocation())
+				MilkQ.CurrentSize(MilkQ.MILKmaid[i])
+			endIf
+			i += 1
+		endWhile
+	endIf
+EndFunction
 
 Event OnSleepStop(bool abInterrupted)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST

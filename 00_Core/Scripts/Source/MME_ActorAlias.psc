@@ -21,11 +21,12 @@ Float PainCount
 Float PainMaximum
 Float WeightBase
 Float TimesMilked
+Float BoobIncr
+Float BoobPerLvl
 
 ;----------------------------------------------------------------------------
 ;init/reset
 ;----------------------------------------------------------------------------
-
 
 ;----------------------------------------------------------------------------
 ;Gets
@@ -99,6 +100,14 @@ Float function getTimesMilked()
 	return TimesMilked
 endfunction
 
+Float function getBoobIncr()
+	return BoobIncr
+endfunction
+
+Float function getBoobPerLvl()
+	return BoobPerLvl
+endfunction
+
 ;----------------------------------------------------------------------------
 ;Sets
 ;----------------------------------------------------------------------------
@@ -165,4 +174,12 @@ endfunction
 
 Float function setTimesMilked(float Value)
 	TimesMilked = Value
+endfunction
+
+Float function setBoobIncr(float Value)
+	BoobIncr = Value
+endfunction
+
+Float function setBoobPerLvl(float Value)
+	BoobPerLvl = Value
 endfunction
