@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>01-11-2017</Version>
+  <Version>14-11-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
@@ -17,6 +17,13 @@ set MME_NPCMilking to 1
 
   
 Dev change log:
+
+	v 14-11-2017
+fix for mcm bugs
+fix skse debuffs bugs
+
+	v 09-11-2017
+finished non debug mcm translation
 
 	v 01-11-2017
 added breast scaling

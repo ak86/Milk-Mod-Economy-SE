@@ -291,7 +291,42 @@
 						</plugin>
 					</plugins>
 				</group>
+				<group name="Plugins" type="SelectAny">
+					<plugins order="Explicit">			
+						<plugin name="SKSE">
+							<description>
+								<![CDATA[SKSE support, MCM menu]]>
+							</description>
+							<conditionFlags>
+								<flag name="SKSE">On</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
 			</optionalFileGroups>
 		</installStep>
 	</installSteps>
+	<conditionalFileInstalls>
+		<patterns>
+			<pattern>
+				<dependencies>
+					<flagDependency flag="SKSE" value="On"/>
+				</dependencies>
+				<files>
+					<folder source="04_Plugins\00_SKSE\True" destination=""/>
+				</files>
+			</pattern>
+			<pattern>
+				<dependencies>
+					<flagDependency flag="SKSE" value=""/>
+				</dependencies>
+				<files>
+					<folder source="04_Plugins\00_SKSE\False" destination=""/>
+				</files>
+			</pattern>
+		</patterns>
+	</conditionalFileInstalls>
 </config>		
