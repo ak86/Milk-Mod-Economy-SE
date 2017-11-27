@@ -5,6 +5,26 @@ string Function getActorName(Actor akActor)
 	return akActor.GetLeveledActorBase().GetName()
 EndFunction
 
+Function mme_RegisterForKey(Int NotificationKey)
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQ.RegisterForKey(NotificationKey)
+EndFunction
+
+Function mme_RegisterForCrosshairRef()
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQ.RegisterForCrosshairRef()
+EndFunction
+
+Function mme_UnregisterForAllKeys()
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQ.UnregisterForAllKeys()
+EndFunction
+
+Function mme_UnRegisterForCrosshairRef()
+	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQ.UnRegisterForCrosshairRef()
+EndFunction
+
 string Function getArmor(Actor akActor, Int slot = 32)
 	return akActor.GetWornForm(Armor.GetMaskForSlot(slot))
 	;return "none"

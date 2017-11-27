@@ -5,6 +5,18 @@ string Function getActorName(Actor akActor)
 	;return akActor.GetLeveledActorBase().GetName()
 EndFunction
 
+Function mme_RegisterForKey(Int NotificationKey)
+EndFunction
+
+Function mme_RegisterForCrosshairRef()
+EndFunction
+
+Function mme_UnregisterForAllKeys()
+EndFunction
+
+Function mme_UnRegisterForCrosshairRef()
+EndFunction
+
 string Function getArmor(Actor akActor, Int slot = 32)
 	;return akActor.GetWornForm(Armor.GetMaskForSlot(slot))
 	return "none"

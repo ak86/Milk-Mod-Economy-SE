@@ -480,11 +480,11 @@ function Debug()
 
 			AddHeaderOption("$Debug_Maintenance_Header")
 				AddToggleOptionST("Debug_enabled", "Debug enabled", MilkQ.MilkQC.Debug_enabled)
-				AddTextOptionST("Debug_ResetMaidsNiO_Toggle", "$Debug_H3_S5", "")
-				AddTextOptionST("Debug_ResetMaids_Toggle", "$Debug_H3_S1", "")
-				AddTextOptionST("Debug_ResetSlaves_Toggle", "$Debug_H3_S4", "")
-				AddTextOptionST("Debug_ResetVar_Toggle", "$Debug_H3_S2", "")
-				AddTextOptionST("Debug_Uninstall_Toggle", "$Debug_H3_S3", "")
+				AddTextOptionST("Debug_ResetMaidsNiO_Toggle", "ResetMaids scaling", "")
+				AddTextOptionST("Debug_ResetMaids_Toggle", "ResetMaids", "")
+				AddTextOptionST("Debug_ResetSlaves_Toggle", "ResetSlaves", "")
+				AddTextOptionST("Debug_ResetVar_Toggle", "ResetVar", "")
+				AddTextOptionST("Debug_Uninstall_Toggle", "Uninstall", "")
 
 	SetCursorPosition(1)
 		AddHeaderOption("$Debug_Spells_Management_Header")
@@ -2990,8 +2990,8 @@ endState
 
 state Hotkey
 	event OnKeyMapChangeST(int newKeyCode, string conflictControl, string conflictName)
-		MilkQ.UnregisterForAllKeys()
-		MilkQ.UnregisterForCrosshairRef()
+		MilkQ.MME_SE.mme_UnregisterForAllKeys()
+		MilkQ.MME_SE.mme_UnregisterForCrosshairRef()
 		bool continue = true
  
 		; Check for conflict
@@ -3010,8 +3010,8 @@ state Hotkey
 			MilkQ.NotificationKey = newKeyCode
 			SetKeyMapOptionValueST(newKeyCode)
 		endIf
-		MilkQ.RegisterForKey(MilkQ.NotificationKey)
-		MilkQ.RegisterForCrosshairRef()
+		MilkQ.MME_SE.mme_RegisterForKey(MilkQ.NotificationKey)
+		MilkQ.MME_SE.mme_RegisterForCrosshairRef()
 	endEvent
 
 	event OnHighlightST()
