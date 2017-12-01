@@ -7,11 +7,11 @@
 	<installSteps order="Explicit">	
 		<installStep name="Core Setup">
 			<optionalFileGroups>
-				<group name="CORE group" type="SelectAny">
+				<group name="0_CORE group" type="SelectAny">
 					<plugins order="Explicit">
 						<plugin name="CORE">
 							<description>
-								Required files.
+								Required files(meshes, textures, sounds).
 							</description>
 							<image path="Fomod\Screens\MilkLogo.jpg"/>
 							<conditionFlags>
@@ -26,71 +26,7 @@
 						</plugin>
 					</plugins>   
 				</group>
-				<group name="MCM Logo" type="SelectExactlyOne">
-					<plugins order="Explicit">
-						<plugin name="Classic">
-							<description>
-								<![CDATA[Black and white]]>
-							</description>
-							<image path="Fomod\Screens\Logo\Classic\MilkLogo.jpg"/>
-							<conditionFlags>
-								<flag name="LogoClassic">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="01_Logo\Classic" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-						<plugin name="Colour">
-							<description>
-								<![CDATA[RGB by Saeros]]>
-							</description>
-							<image path="Fomod\Screens\Logo\Colour\MilkLogo.jpg"/>
-							<conditionFlags>
-								<flag name="LogoColour">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="01_Logo\Colour" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-						<plugin name="Colour wBorder">
-							<description>
-								<![CDATA[RGB with white border by Saeros]]>
-							</description>
-							<image path="Fomod\Screens\Logo\ColourBorder\MilkLogo.jpg"/>
-							<conditionFlags>
-								<flag name="LogoColourBorder">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="01_Logo\ColourBorder" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-						<plugin name="Colour Milk">
-							<description>
-								<![CDATA[RGB with white border by Lizard2010]]>
-							</description>
-							<image path="Fomod\Screens\Logo\ColourMilk\MilkLogo.jpg"/>
-							<conditionFlags>
-								<flag name="LogoColourMilk">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="01_Logo\ColourMilk" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-					</plugins>   
-				</group>
-				<group name="Pre made Milking Cuirass" type="SelectExactlyOne">
+				<group name="1_Pre made Milking Cuirass" type="SelectExactlyOne">
 					<plugins order="Explicit">
 						<plugin name="CBBE">
 							<description>
@@ -124,7 +60,7 @@
 						</plugin>
 					</plugins>   
 				</group>
-				<group name="Extra" type="SelectAny">
+				<group name="2_Extra" type="SelectAny">
 					<plugins order="Explicit">			
 						<plugin name="Brown Panty">
 							<description>
@@ -140,193 +76,9 @@
 								<type name="Optional"/>
 							</typeDescriptor>
 						</plugin>				
-						<plugin name="Campfire">
-							<description>
-								<![CDATA[Campfire plugin, allows crafting and placing milkpumps]]>
-							</description>
-							<image path="Fomod\Screens\CF.jpg"/>
-							<conditionFlags>
-								<flag name="Campfire">Campfire</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\Campfire" destination=""/>
-							</files>
-							<typeDescriptor>
-								<dependencyType>
-									<defaultType name="Optional"/>
-									<patterns>
-										<pattern>
-											<dependencies>
-												<fileDependency file="Campfire.esm" state="Active"/>
-											</dependencies>
-											<type name="Recommended"/>
-										</pattern>
-									</patterns>
-								</dependencyType>
-							</typeDescriptor>
-						</plugin>
-						<plugin name="Hearthfire">
-							<description>
-								<![CDATA[Hearthfire DLC plugin, adds ability to craft "Jug of Milk" from milk potions at Cooking Pot]]>
-							</description>
-							<conditionFlags>
-								<flag name="Hearthfire">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\Hearthfire" destination=""/>
-							</files>
-							<typeDescriptor>
-								<dependencyType>
-									<defaultType name="Optional"/>
-									<patterns>
-										<pattern>
-											<dependencies>
-												<fileDependency file="HearthFires.esm" state="Active"/>
-											</dependencies>
-											<type name="Recommended"/>
-										</pattern>
-									</patterns>
-								</dependencyType>
-							</typeDescriptor>
-						</plugin>
-						<plugin name="Sandbox">
-							<description>
-								<![CDATA[Enables sandbox for milkpumps, any npc can use pumps]]>
-							</description>
-							<conditionFlags>
-								<flag name="Sandbox_Patch">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\Sandbox" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>				
-						</plugin>
 					</plugins>   
-				</group>
-			</optionalFileGroups>
-		</installStep>
-		<installStep name="Milk Pumps Selection">
-			<optionalFileGroups>
-				<group name="MilkPumps" type="SelectExactlyOne">
-					<plugins order="Explicit">
-						<plugin name="None">
-							<description>
-								<![CDATA[No placed milkpumps]]>
-							</description>
-							<image path="Fomod\Screens\MPNO.jpg"/>
-							<conditionFlags>
-								<flag name="MilkumpNone">None</flag>
-							</conditionFlags>
-							<files>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>				
-						</plugin>
-						<plugin name="Basic">
-							<description>
-								<![CDATA[Basic placement of milkpumps, not bound in towns, bound in orc strongholds, will probably conflict with city mods]]>
-							</description>
-							<image path="Fomod\Screens\MPBasic.jpg"/>
-							<conditionFlags>
-								<flag name="MilkumpBasic">Basic</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\MilkPumps Basic" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>				
-						<plugin name="BasicNB">
-							<description>
-								<![CDATA[Basic placement of milkpumps, all pumps are not bound, will probably conflict with city mods]]>
-							</description>
-							<image path="Fomod\Screens\MPBasic.jpg"/>
-							<conditionFlags>
-								<flag name="MilkumpBasicNB">Basic not bound</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\MilkPumps Basic NB" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>				
-						<plugin name="BasicB">
-							<description>
-								<![CDATA[Basic placement of milkpumps, all pumps are bound, will probably conflict with city mods]]>
-							</description>
-							<image path="Fomod\Screens\MPBasic.jpg"/>
-							<conditionFlags>
-								<flag name="MilkumpBasicB">Basic bound</flag>
-							</conditionFlags>
-							<files>
-								<folder source="03_Extra\MilkPumps Basic B" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>				
-					</plugins>   
-				</group>
-			</optionalFileGroups>
-		</installStep>
-		<installStep name="Plugins integration">
-			<optionalFileGroups>
-				<group name="0 Read me" type="SelectAny">
-					<plugins order="Explicit">			
-						<plugin name="Read me">
-							<description>
-								<![CDATA[Installing plugin scripts for optional mods. Installing scripts without mod may lead to mod conflicts and mods not working.]]>
-							</description>
-							<conditionFlags>
-								<flag name="Read me"></flag>
-							</conditionFlags>
-							<typeDescriptor>
-								<type name="Required"/>
-							</typeDescriptor>
-						</plugin>
-					</plugins>
-				</group>
-				<group name="Plugins" type="SelectAny">
-					<plugins order="Explicit">			
-						<plugin name="SKSE">
-							<description>
-								<![CDATA[SKSE support, MCM menu]]>
-							</description>
-							<conditionFlags>
-								<flag name="SKSE">On</flag>
-							</conditionFlags>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-					</plugins>
 				</group>
 			</optionalFileGroups>
 		</installStep>
 	</installSteps>
-	<conditionalFileInstalls>
-		<patterns>
-			<pattern>
-				<dependencies>
-					<flagDependency flag="SKSE" value="On"/>
-				</dependencies>
-				<files>
-					<folder source="04_Plugins\00_SKSE\True" destination=""/>
-				</files>
-			</pattern>
-			<pattern>
-				<dependencies>
-					<flagDependency flag="SKSE" value=""/>
-				</dependencies>
-				<files>
-					<folder source="04_Plugins\00_SKSE\False" destination=""/>
-				</files>
-			</pattern>
-		</patterns>
-	</conditionalFileInstalls>
 </config>		
