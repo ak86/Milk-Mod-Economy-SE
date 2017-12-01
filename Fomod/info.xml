@@ -1,12 +1,192 @@
 ﻿<fomod>
-  <Name>Milk Mod Economy SSE Assets</Name>
+  <Name>Milk Mod Economy SSE Scripts</Name>
   <Version>01-12-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
   
-Meshes, textures and other stuff that unlikely to update
+Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
+Milk Mod Economy SSE Assets
 
+Install mod, run fnis, run game, save, load save.
+you may need to use uninstall spell and then toggle(enable) mod spell
+
+NPC MILKING may break npcs, i hadn't done extensive testing, so its disabled by default
+to enable NPC milking use console:
+set MME_NPCMilking to 1
+
+
+Dialogue trade:
+Khajiits merchants:
+-buy all milk
+-trade Lactacid for milk
+Orc merchants(wise woman):
+-buy normal and race milk
+Inns:
+-buy race milk
+alchemists: 					
+-buy ww/vampire/succubus milk
+-buy cum/semen
+-sell Lactacid for 100g
+-sell Breast enlargement potion for 1000g
+Fences:
+-buy all milk
+Farmers:
+-buy normal milk
+-sell Lactacid for 100g
+
+Milk Pump locations:
+DawnStar
+Falkreath
+Markarth
+ - outside of dibella's temple
+Orc strongholds (Features bound milkpumps, they wont let you(player) get out until you are milked dry)
+Riften
+ - outside of mara's temple
+ - Shor's stone
+Solitude
+ - Dragon's bridge
+ - Morthal
+Whiterun
+ - behind the blacksmith
+ - Riverwood
+ - Rorikstead
+Windhelm
+ - near the blacksmith
+ - Winterhold
+Caravan
+ - Ivarstead
+
+Placing your own Milk Pumps:
+You can place Milk Pump anywhere you want, try might even affect with economy or not, using console type:
+1) help milk
+2) get id of FURN Milk Pump
+3) player.placeatme id from above
+4) use [url=http://www.nexusmods.com/skyrim/mods/60910/]Jaxonz Positioner[/url] to adjust position
+
+  
+Dev change log:
+
+	v 01-12-2017
+enabled lactacid for maids
+
+	v 27-11-2017
+fixed bug with wellmilked spell milking getting stuck
+
+	v 21-11-2017
+restored skse hotkey functions
+	
+	v 15-11-2017
+fix for feeding loop interrupion(now it plays in 1 go)
+added permanent milkpump bound mode for mods(player will be stuck in bound pump untill released by other mod)
+	
+	v 14-11-2017
+fix for mcm bugs
+fix skse debuffs bugs
+fix for milkpumps feeding
+
+	v 09-11-2017
+finished non debug mcm translation
+
+	v 01-11-2017
+added breast scaling
+probably fixed most of mcm
+
+	v 25-10-2017
+added pregnancy detection for Basic Pregnancy Cycle, EggFactory, BeeingFemale
+
+	v 24-10-2017
+added skse base framework
+added mcm, broken due to lack of translation support
+
+	v 20-10-2017
+ported bodyslide sets, though they seems to get neck gap
+fix not allow "use" of more maid slots than mod actually has
+
+	v 17-10-2017
+fixed esp
+
+	v 14-10-2017
+removed manga body cuirass
+moved unp/cbbe bodies folders
+
+	v 13-10-2017
+disabled breast potions
+
+	v 11-10-2017
+some fixes
+test skse
+
+	v 10-10-2017
+added orgasm sounds
+
+	v 09-10-2017
+restored dialogues for maid milking, since there is no sexlab for SE, initiate self milking
+added moans to milking/ lactacid
+set followers/maids fixed milk production 0.33 per hour
+reduced milking duration  20->5 sec
+added stripping for mobile milking
+added Setunconscious() to prevent npc moving during milking
+
+	v 06-10-2017
+something i forgot =)
+
+	v 03-10-2017
+buffs/debuffs
+enabled maidlvlcap
+
+	v 30-09-2017
+re-added levelling
+
+	v 22-09-2017
+replaced esp futa meshes with normal female armor
+
+	v 20-09-2017
+textures fix for bound milkpumps
+removed crafting of futa cuirass
+removed futa cuirass meshes
+
+	v 14-09-2017
+restored breast potions scripts
+restored dialogues for potions
+
+	v 13-09-2017
+restored lactacid script
+got drunk
+
+	v 11-09-2017
+restored storage script
+
+	v 09-09-2017
+fixed esp(missing milking cups and who knows what else), stupid NMM with its virtual installs
+enabled leaking textures and particle effects
+
+	v 06-09-2017
+drank some milk, resurrected mod
+removed ineed
+cleaned scripts of all skse witchery
+removed most of scripts code
+disabled lactacid, breast inc/dec potion dialogues, since those are useless
+fixed nifs
+added workaround for npc milking and redressing
+increased npc milking duration to 20*rnd(1-4) seconds
+
+	v 04-09-2017
+gave up on mod w/o sse
+
+	v 02-09-2017
+cleaned installer
+
+	v 01-09-2017
+converted milking 6 horny animations
+moved zaz pumps meshes and textures
+removed zaz dependency, milking is now handled by mme
+removed most plugins
+removed integration with most SL mods
+removed skse jsons
+patched esps to work with SSE
+partially reverted rnd to pre json
+updated ineed module
 
  </Description>
 </fomod>
