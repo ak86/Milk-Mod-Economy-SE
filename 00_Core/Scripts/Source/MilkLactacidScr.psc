@@ -23,12 +23,10 @@ Event OnEffectStart( Actor akTarget, Actor akCaster )
 					akTarget.RemoveSpell( MilkQ.MME_Spells_Buffs.GetAt(4) as Spell )
 				endif
 				
-				Debug.Notification("You feel revitalised, exhaustion is gone!")
+					debug.Notification(MME_SE.getActorName(akTarget) + " revitalised, exhaustion is gone!")
 			endif
 			
-			if akTarget == MilkQ.PlayerREF
-				MME_Storage.changeLactacidCurrent(MilkQ.GetAlias(MilkQ.MILKmaid.find(akTarget)) as MME_ActorAlias, 1)
-			endif
+			MME_Storage.changeLactacidCurrent(MilkQ.GetAlias(MilkQ.MILKmaid.find(akTarget)) as MME_ActorAlias, 1)
 		else 
 			int ButtonPressed
 			int count = 0

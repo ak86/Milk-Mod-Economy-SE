@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE</Name>
-  <Version>27-11-2017</Version>
+  <Version>01-12-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
@@ -65,6 +65,9 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 01-12-2017
+enabled lactacid for maids
 
 	v 27-11-2017
 fixed bug with wellmilked spell milking getting stuck
