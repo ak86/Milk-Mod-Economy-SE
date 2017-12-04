@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE Scripts</Name>
-  <Version>02-12-2017</Version>
+  <Version>04-12-2017</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
@@ -67,9 +67,12 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
   
 Dev change log:
 
+	v 04-12-2017
+enabled lactacid for maids, again
+
 	v 02-12-2017
 separated mod int 2 parts
-fixed breast enlargement/reduction dialogues
+fixed breast enlargement/reduction dialogues, potions still disabled
 
 	v 01-12-2017
 enabled lactacid for maids

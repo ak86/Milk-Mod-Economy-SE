@@ -10,7 +10,7 @@ Event OnEffectStart( Actor akTarget, Actor akCaster )
 ;	endif
 
 	
-	if akTarget.GetLeveledActorBase().GetSex() == 1 || MilkQ.MaleMaids == true && akTarget == PlayerRef
+	if akTarget.GetLeveledActorBase().GetSex() == 1 || MilkQ.MaleMaids == true
 		if MilkQ.MILKmaid.find(akTarget) != -1
 			if akTarget.HasSpell(MilkQ.MME_Spells_Buffs.GetAt(3) as Spell)\
 			|| akTarget.HasSpell(MilkQ.MME_Spells_Buffs.GetAt(4) as Spell)
@@ -23,7 +23,7 @@ Event OnEffectStart( Actor akTarget, Actor akCaster )
 					akTarget.RemoveSpell( MilkQ.MME_Spells_Buffs.GetAt(4) as Spell )
 				endif
 				
-					debug.Notification(MME_SE.getActorName(akTarget) + " revitalised, exhaustion is gone!")
+					debug.Notification(MilkQ.MME_SE.getActorName(akTarget) + " revitalised, exhaustion is gone!")
 			endif
 			
 			MME_Storage.changeLactacidCurrent(MilkQ.GetAlias(MilkQ.MILKmaid.find(akTarget)) as MME_ActorAlias, 1)
