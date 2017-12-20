@@ -527,39 +527,39 @@ Function MilkCycle(Actor akActor, int t)
 	;Debug.Notification(ActorAlias.getBreastRowsAdjust()+"getBreastRowsAdjust before")
 	;Debug.Notification(ActorAlias.getBreastBasePotionMod()+"getBreastBasePotionMod")
 	;add/remove breast row trigger, cause lactation due to drinking breast inc/dec potion
-;	if ActorAlias.getBreastBasePotionMod() != 0
-;		if ActorAlias.getBreastBasePotionMod() > 0
-;			BreastBaseMod += 0.01
-;			if Utility.RandomInt(0, 25) <= 25
-;				if ActorAlias.getMilkGen() == 0
-;					if akActor == PlayerRef
-;						debug.Notification("Your breasts has started lactating.")
-;					endif
-;					ActorAlias.setMilkGen(1/3/10)
-;					AddMilkFx(akActor, 1)
-;					AddLeak(akActor)
-;				else
-;					ActorAlias.setMilkGen(ActorAlias.getMilkGen() + MaidMilkGen/3/10)
-;					if akActor == PlayerRef
-;						debug.Notification("Your lactation has increased.")
-;					endif
-;					MaidMilkGen = ActorAlias.getMilkGen()
-;				endif
-;				if Utility.RandomInt(0, 1) <= MilkQC.BrestEnlargement_MultiBreast_Effect && BreastRows < 4
-;					ActorAlias.setBreastRowsAdjust(ActorAlias.getBreastRowsAdjust() + 1) 							;add breast row on sleep
-;				endif
-;			endif
-;		elseif ActorAlias.getBreastBasePotionMod() < 0
-;			BreastBaseMod -= 0.01
-;			if Utility.RandomInt(0, 100) <= 25 && BreastRows > 1
-;				ActorAlias.setBreastRowsAdjust(ActorAlias.getBreastRowsAdjust() - 1) 								;remove breast row on sleep
-;			endif
-;		endif		
-;		ActorAlias.setBreastBasePotionMod(ActorAlias.getBreastBasePotionMod() - 1)
-;		MME_Storage.setBreastsBaseadjust(ActorAlias, BreastBaseMod)
-;		BreastBase += BreastBaseMod
-;	endif
-	;Debug.Notification(ActorAlias.getBreastRowsAdjust()+"getBreastRowsAdjust after")
+	if ActorAlias.getBreastBasePotionMod() != 0
+		if ActorAlias.getBreastBasePotionMod() > 0
+			BreastBaseMod += 0.01
+			if Utility.RandomInt(0, 25) <= 25
+				if ActorAlias.getMilkGen() == 0
+					if akActor == PlayerRef
+						debug.Notification("Your breasts has started lactating.")
+					endif
+					ActorAlias.setMilkGen(1/3/10)
+					AddMilkFx(akActor, 1)
+					AddLeak(akActor)
+				else
+					ActorAlias.setMilkGen(ActorAlias.getMilkGen() + MaidMilkGen/3/10)
+					if akActor == PlayerRef
+						debug.Notification("Your lactation has increased.")
+					endif
+					MaidMilkGen = ActorAlias.getMilkGen()
+				endif
+				if Utility.RandomInt(0, 1) <= MilkQC.BrestEnlargement_MultiBreast_Effect && BreastRows < 4
+					ActorAlias.setBreastRowsAdjust(ActorAlias.getBreastRowsAdjust() + 1) 							;add breast row on sleep
+				endif
+			endif
+		elseif ActorAlias.getBreastBasePotionMod() < 0
+			BreastBaseMod -= 0.01
+			if Utility.RandomInt(0, 100) <= 25 && BreastRows > 1
+				ActorAlias.setBreastRowsAdjust(ActorAlias.getBreastRowsAdjust() - 1) 								;remove breast row on sleep
+			endif
+		endif		
+		ActorAlias.setBreastBasePotionMod(ActorAlias.getBreastBasePotionMod() - 0.01)
+		MME_Storage.setBreastsBaseadjust(ActorAlias, BreastBaseMod)
+		BreastBase += BreastBaseMod
+	endif
+;	Debug.Notification(ActorAlias.getBreastRowsAdjust()+"getBreastRowsAdjust after")
 ;	Debug.Notification(ActorAlias.getBreastRows()+"getBreastRows after")
 	
 	;increase breast node if its lower than 1, probably never happens
@@ -970,9 +970,7 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 			Utility.Wait( 1.0 )
 		endwhile
 		
-		if akActor.IsEquipped(TITS4)\
-		|| akActor.IsEquipped(TITS6)\
-		|| akActor.IsEquipped(TITS8)
+		if (akActor.IsEquipped(TITS4) || akActor.IsEquipped(TITS6) || akActor.IsEquipped(TITS8))
 			akActor.additem(ZaZMoMSuctionCups, 1, true)
 			akActor.equipitem(ZaZMoMSuctionCups, true, true)
 		elseIf PlayerREF != akActor
@@ -993,13 +991,15 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 		If akActor != PlayerREF
 			akActor.Setunconscious()
 		EndIf
-		If akActor.GetItemCount(MilkCuirass) > 0
-			akActor.equipitem(MilkCuirass, true, true)
-			hasInventoryMilkCuirass = true
-			Mode = 2
-		else 
-			akActor.UnequipAll()
-			Mode = 1
+		if !(akActor.IsEquipped(TITS4) || !akActor.IsEquipped(TITS6) || !akActor.IsEquipped(TITS8))
+			If akActor.GetItemCount(MilkCuirass) > 0
+				akActor.equipitem(MilkCuirass, true, true)
+				hasInventoryMilkCuirass = true
+				Mode = 2
+			else 
+				akActor.UnequipAll()
+				Mode = 1
+			EndIf
 		EndIf
 		
 		If !akActor.IsInCombat()
@@ -1748,7 +1748,7 @@ Function MultiBreastChange(Actor akActor)
 	MME_ActorAlias ActorAlias = self.GetAlias(MILKmaid.find(akActor)) as MME_ActorAlias
 	Float BreastRows = MME_Storage.getBreastRows(ActorAlias)
 	
-	debug.Notification("MBC0" + BreastRows)
+	;debug.Notification("MBC0" + BreastRows)
 	if !akActor.IsInFaction(MilkSlaveFaction) && !akActor.IsInFaction(MilkMaidFaction)
 		if akActor.IsEquipped(TITS4)
 			akActor.RemoveItem(TITS4, 1, true)
@@ -1761,7 +1761,7 @@ Function MultiBreastChange(Actor akActor)
 		return
 	endif
 	
-	debug.Notification("MBC" + BreastRows)
+	;debug.Notification("MBC" + BreastRows)
 	if BreastRows < 1
 		BreastRows = 1
 		MME_Storage.setBreastRows(ActorAlias, 1)
@@ -1788,6 +1788,16 @@ Function MultiBreastChange(Actor akActor)
 		akActor.EquipItem(TITS8,true,true)
 	endif
 	MME_Storage.updateMilkMaximum(ActorAlias)
+	
+	if akActor != PlayerREF && BreastRows == 1
+		ObjectReference npcportmarker = Game.GetFormFromFile(0x7FE98, "Milkmod.esp") as ObjectReference
+		akActor.disable()
+		npcportmarker.MoveTo(akActor)
+		akActor.MoveTo(npcportmarker)
+		akActor.SetAngle(0.0, 0.0, 0.0)
+		akActor.enable()
+	endif
+
 EndFunction
 
 Function DLCcheck()

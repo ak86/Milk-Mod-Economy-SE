@@ -269,9 +269,9 @@ function updateMilkMaximum(MME_ActorAlias akActor) global
 	; MilkMax must be >=1 to enable milking
 	float MinValue = 1
 	if MilkMax >= MinValue
-		akActor.setMilkCount(MilkMax)
+		akActor.setMilkMaximum(MilkMax)
 	else
-		akActor.setMilkCount(MinValue)
+		akActor.setMilkMaximum(MinValue)
 	endif
 	updateMilkCurrent(akActor)
 endfunction

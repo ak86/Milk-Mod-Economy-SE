@@ -184,17 +184,17 @@ EndFunction
 Function Fragment_09(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 	;breast potion
-	Debug.Notification("breast potions disabled")
-	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(1), 1)
-	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
+	;Debug.Notification("breast potions disabled")
+	Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(1), 1)
+	Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction
 
 Function Fragment_10(ObjectReference akSpeakerRef)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 	;breast potion
-	Debug.Notification("breast potions disabled")
-	;Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(2), 1)
-	;Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
+	;Debug.Notification("breast potions disabled")
+	Game.Getplayer().additem(MilkQ.MME_Util_Potions.GetAt(2), 1)
+	Game.Getplayer().removeitem(MilkQ.MilkE.Gold, 1000, true)
 EndFunction
 
 Function Fragment_11(ObjectReference akSpeakerRef)
