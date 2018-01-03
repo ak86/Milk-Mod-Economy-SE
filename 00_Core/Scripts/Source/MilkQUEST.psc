@@ -991,11 +991,13 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 		If akActor != PlayerREF
 			akActor.Setunconscious()
 		EndIf
-		if !(akActor.IsEquipped(TITS4) || !akActor.IsEquipped(TITS6) || !akActor.IsEquipped(TITS8))
+		if !(akActor.IsEquipped(TITS4) || akActor.IsEquipped(TITS6) || akActor.IsEquipped(TITS8))
 			If akActor.GetItemCount(MilkCuirass) > 0
 				akActor.equipitem(MilkCuirass, true, true)
 				hasInventoryMilkCuirass = true
 				Mode = 2
+			elseif akActor.IsEquipped(MilkCuirass)
+				Mode = 2 
 			else 
 				akActor.UnequipAll()
 				Mode = 1
@@ -1419,9 +1421,6 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 			Debug.SendAnimationEvent(akActor,"IdleForceDefaultState")
 		endif
 		
-		boobgasmcount = bottles/4
-		cumcount = bottles/4
-		
 		if bottles > 0
 			if IsMilkMaid == true || PlayerREF == akActor
 				LevelCheck()
@@ -1429,6 +1428,7 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 				AddMilkFx(akActor, 2)
 				AddLeak(akActor)
 
+				Debug.Notification("mode " + Mode)
 				if Mode == 0 || Mode == 2
 					if Mode == 0 && MilkingType == 1 && MilkE.GetMarketIndexFromLocation(akActor.GetCurrentLocation()) == 4
 						bottles = bottles / 2 

@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SSE Scripts</Name>
-  <Version>20-12-2017</Version>
+  <Version>03-01-2018</Version>
   <Author>Ed86</Author>
   <Website>http://www.loverslab.com/files/file/4487-milk-mod-economy-light-sse/</Website>
   <Description>
@@ -9,7 +9,7 @@ Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Sky
 Milk Mod Economy SSE Assets
 
 Install mod, run fnis, run game, save, load save.
-you may need to use uninstall spell and then toggle(enable) mod spell
+you may need to use uninstall spell and then toggle(enable) mod spell for mod to start
 
 NPC MILKING may break npcs, i hadn't done extensive testing, so its disabled by default
 to enable NPC milking use console:
@@ -66,6 +66,11 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 03-01-2018
+fix cuirass milking not giving milk
+fix for milkpump animations(feeding, dildo etc)
+
 
 	v 20-12-2017
 fix for incorrect calculation of maximum maid milk
