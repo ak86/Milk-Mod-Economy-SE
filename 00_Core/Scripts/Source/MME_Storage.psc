@@ -1,7 +1,9 @@
 Scriptname MME_Storage Hidden
+;will spam lots of <unknown self>.mme_storage. errors, but everything is working, no idea how to fix
 
 function initializeActor(MME_ActorAlias akActor, float Level = 0.0, float MilkCnt = 0.0) global
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	;Debug.Notification(" ActorAlias " + akActor)
 
 	akActor.setBreastBase(1)
 	akActor.setBreastBaseMod(0)
@@ -102,7 +104,9 @@ endfunction
 function setMilkCurrent(MME_ActorAlias akActor, float Value, bool enforceMaxValue) global
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 
-	if enforceMaxValue && MilkQ.PiercingCheck(akActor.getActor() as actor) != 2
+	if Value <= 0
+		akActor.setMilkCount(0)
+	elseif enforceMaxValue && MilkQ.PiercingCheck(akActor.getActor() as actor) != 2
 		float MilkMax = getMilkMaximum(akActor)
 		if Value <= MilkMax
 			akActor.setMilkCount(Value)
@@ -117,8 +121,10 @@ endfunction
 function changeMilkCurrent(MME_ActorAlias akActor, float Delta, bool enforceMaxValue) global
 	float MilkCur = getMilkCurrent(akActor)
 	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-
-	if enforceMaxValue && MilkQ.PiercingCheck(akActor.getActor() as actor) != 2
+	
+	if MilkCur + Delta <= 0
+		akActor.setMilkCount(0)
+	elseif enforceMaxValue && MilkQ.PiercingCheck(akActor.getActor() as actor) != 2
 		float MilkMax = getMilkMaximum(akActor)
 		if (MilkCur + Delta) <= MilkMax
 			akActor.setMilkCount(MilkCur+Delta)

@@ -622,6 +622,8 @@ Function MilkCycle(Actor akActor, int t)
 	;update actor values
 	If MilkAsMaidTimesMilked
 		ActorAlias.setTimesMilked(ActorAlias.getTimesMilked()+MilkTick)
+		ProgressionTimesMilked += MilkTick
+		ProgressionTimesMilkedAll += MilkTick
 		MaidLevelCheck(akActor)
 		MilkMax = MME_Storage.getMilkMaximum(ActorAlias)
 	EndIf
@@ -747,6 +749,7 @@ Function AssignSlotMaid(Actor akActor)
 		EndIf
 	EndIf
 	MME_ActorAlias ActorAlias = self.GetAlias(MILKmaid.find(akActor)) as MME_ActorAlias
+	;Debug.Notification(" ActorAlias " + ActorAlias)
 	MME_Storage.initializeActor(ActorAlias)
 	akActor.AddToFaction(MilkMaidFaction)
 	;Debug.Notification(" MME_Storage.getMilkMaximum(ActorAlias) " + MME_Storage.getMilkMaximum(ActorAlias))
@@ -1408,11 +1411,11 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 		if PlayerREF != akActor
 			Utility.Wait(0.1)
 
-			ObjectReference npcportmarker = Game.GetFormFromFile(0x7FE98, "Milkmod.esp") as ObjectReference
+			;Static npcportmarker = Game.GetFormFromFile(0x7FE98, "Milkmod.esp") as Static
 			akActor.disable()
-			npcportmarker.MoveTo(akActor)
-			akActor.MoveTo(npcportmarker)
-			akActor.SetAngle(0.0, 0.0, 0.0)
+			;npcportmarker.MoveTo(akActor)
+			;akActor.MoveTo(npcportmarker)
+			;akActor.SetAngle(0.0, 0.0, 0.0)
 			akActor.enable()
 		endif
 		
@@ -1423,12 +1426,13 @@ Function Milking(Actor akActor, int i, int Mode, int MilkingType)
 		
 		if bottles > 0
 			if IsMilkMaid == true || PlayerREF == akActor
+				ProgressionTimesMilked += bottles
+				ProgressionTimesMilkedAll += bottles
 				LevelCheck()
 				PostMilk(akActor)
 				AddMilkFx(akActor, 2)
 				AddLeak(akActor)
 
-				Debug.Notification("mode " + Mode)
 				if Mode == 0 || Mode == 2
 					if Mode == 0 && MilkingType == 1 && MilkE.GetMarketIndexFromLocation(akActor.GetCurrentLocation()) == 4
 						bottles = bottles / 2 
@@ -1790,11 +1794,11 @@ Function MultiBreastChange(Actor akActor)
 	MME_Storage.updateMilkMaximum(ActorAlias)
 	
 	if akActor != PlayerREF && BreastRows == 1
-		ObjectReference npcportmarker = Game.GetFormFromFile(0x7FE98, "Milkmod.esp") as ObjectReference
+		;ObjectReference npcportmarker = Game.GetFormFromFile(0x7FE98, "Milkmod.esp") as ObjectReference
 		akActor.disable()
-		npcportmarker.MoveTo(akActor)
-		akActor.MoveTo(npcportmarker)
-		akActor.SetAngle(0.0, 0.0, 0.0)
+		;npcportmarker.MoveTo(akActor)
+		;akActor.MoveTo(npcportmarker)
+		;akActor.SetAngle(0.0, 0.0, 0.0)
 		akActor.enable()
 	endif
 
