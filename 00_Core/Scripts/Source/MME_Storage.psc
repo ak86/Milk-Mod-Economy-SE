@@ -162,10 +162,13 @@ float function getMilkProdPerHour(MME_ActorAlias akActor) global
 	return calculateMilkProdPerHour(akActor, akActor.getMilkGen())
 endfunction
 
+;broken
 float function setMilkProdPerHour(MME_ActorAlias akActor, float MilkProdPerHour) global
 	float MilkGen = calculateMilkGen(akActor, MilkProdPerHour)
+	debug.messagebox(MilkProdPerHour+" setMilkProdPerHour cycle start "+MilkGen)
+	akActor.setMilkGen(MilkGen)
 	; return value can be different then provided value
-	return calculateMilkProdPerHour(akActor, akActor.setMilkGen(MilkGen))
+	return calculateMilkProdPerHour(akActor, MilkGen)
 endfunction
 
 ; TODO dynamically adjust allowable maximum or restrict actual production rate to maximum
@@ -229,14 +232,14 @@ float function calculateMilkLimit(MME_ActorAlias akActor, float Level) global
 endfunction
 
 ; convert 'milk production per hour' to 'MME.MilkMaid.MilkGen'
+;broken
 float function calculateMilkGen(MME_ActorAlias akActor, float MilkProdPerHour) global
 	if MilkProdPerHour <= 0.0
 		return 0.0
 	endif
-	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
 
 	float BreastsBasevalue = getBreastsBasevalue(akActor)
-	float BoobPerLvl       = MilkQ.BoobPerLvl
+	float BoobPerLvl       = akActor.getBoobPerLvl()
 	float MaidLevel        = getMaidLevel(akActor)
 	float BreastRows       = getBreastRows(akActor)
 
@@ -244,8 +247,15 @@ float function calculateMilkGen(MME_ActorAlias akActor, float MilkProdPerHour) g
 	if BoobPerLvl < 0.0
 		BoobPerLvl = 0.07
 	endif
+	
+	float MilkGen = MilkProdPerHour*3*10/BreastRows - (BreastsBasevalue + (BoobPerLvl*MaidLevel)); fucking math fuck you!
+	debug.messagebox(MilkProdPerHour+" calculateMilkGen "+MilkGen)
 
-	return ((MilkProdPerHour/BreastRows)*3*10) - BreastsBasevalue - (BoobPerLvl*MaidLevel)
+	if MilkGen <= 0.0
+		return 0.0
+	endif
+	
+	return MilkGen
 endfunction
 
 ; convert 'MME.MilkMaid.MilkGen' to 'milk production per hour'
@@ -253,11 +263,9 @@ float function calculateMilkProdPerHour(MME_ActorAlias akActor, float MilkGen) g
 	if MilkGen <= 0.0
 		return 0.0
 	endif
-	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
-
 
 	float BreastsBasevalue = getBreastsBasevalue(akActor)
-	float BoobPerLvl       = MilkQ.BoobPerLvl
+	float BoobPerLvl       = akActor.getBoobPerLvl()
 	float MaidLevel        = getMaidLevel(akActor)
 	float BreastRows       = getBreastRows(akActor)
 
@@ -265,6 +273,7 @@ float function calculateMilkProdPerHour(MME_ActorAlias akActor, float MilkGen) g
 	if BoobPerLvl < 0.0
 		BoobPerLvl = 0.07
 	endif
+				debug.messagebox(BreastsBasevalue+ (BoobPerLvl*MaidLevel)+" Breath cycle start "+MilkGen)
 
 	return ((BreastsBasevalue + (BoobPerLvl*MaidLevel) + MilkGen)/3/10)*BreastRows
 endfunction
