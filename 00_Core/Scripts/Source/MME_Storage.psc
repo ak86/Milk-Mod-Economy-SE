@@ -165,7 +165,7 @@ endfunction
 ;broken
 float function setMilkProdPerHour(MME_ActorAlias akActor, float MilkProdPerHour) global
 	float MilkGen = calculateMilkGen(akActor, MilkProdPerHour)
-	debug.messagebox(MilkProdPerHour+" setMilkProdPerHour cycle start "+MilkGen)
+	;debug.messagebox(MilkProdPerHour+" setMilkProdPerHour cycle start "+MilkGen)
 	akActor.setMilkGen(MilkGen)
 	; return value can be different then provided value
 	return calculateMilkProdPerHour(akActor, MilkGen)
@@ -249,7 +249,7 @@ float function calculateMilkGen(MME_ActorAlias akActor, float MilkProdPerHour) g
 	endif
 	
 	float MilkGen = MilkProdPerHour*3*10/BreastRows - (BreastsBasevalue + (BoobPerLvl*MaidLevel)); fucking math fuck you!
-	debug.messagebox(MilkProdPerHour+" calculateMilkGen "+MilkGen)
+	;debug.messagebox(MilkProdPerHour+" calculateMilkGen "+MilkGen)
 
 	if MilkGen <= 0.0
 		return 0.0
@@ -273,7 +273,7 @@ float function calculateMilkProdPerHour(MME_ActorAlias akActor, float MilkGen) g
 	if BoobPerLvl < 0.0
 		BoobPerLvl = 0.07
 	endif
-				debug.messagebox(BreastsBasevalue+ (BoobPerLvl*MaidLevel)+" Breath cycle start "+MilkGen)
+	;debug.messagebox(BreastsBasevalue+ (BoobPerLvl*MaidLevel)+" Breath cycle start "+MilkGen)
 
 	return ((BreastsBasevalue + (BoobPerLvl*MaidLevel) + MilkGen)/3/10)*BreastRows
 endfunction

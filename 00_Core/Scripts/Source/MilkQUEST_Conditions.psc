@@ -6,6 +6,7 @@ Scriptname MilkQUEST_Conditions extends Quest Conditional
 ;(De)Buffs
 ;----------------------------------------------------------------------------
 
+Bool Property ExhaustionDebuff = True Auto Conditional
 Int Property ExhaustionMode Auto Conditional
 ; anyting = exhausion debuff until sleep or 1 day
 ; 300 = exhausion debuff has duration
@@ -32,7 +33,7 @@ Int Property BrestEnlargement_MultiBreast_Effect Auto Conditional
 ;Dialogues
 ;----------------------------------------------------------------------------
 
-Bool Property MME_BreasfeedingAnimationsCheck = True Auto Conditional
+Bool Property MME_BreasfeedingAnimationsCheck = False Auto Conditional
 Bool Property MME_DialogueMilking = True Auto Conditional
 
 Bool Property MME_SubjectMaid Auto Conditional
