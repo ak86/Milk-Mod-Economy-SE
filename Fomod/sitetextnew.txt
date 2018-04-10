@@ -1,0 +1,158 @@
+[size=4][font=times new roman]
+[color=#ff0000]Requires:[/color]
+[url=https://www.nexusmods.com/skyrimspecialedition/mods/1988/]XPMSE[/url]
+Custom body replacer, like CBBE or UNP
+
+Rate Mod if you like it, you can support me on [url=https://www.patreon.com/Ed86]Patreon[/url]
+ 
+[color=#ff0000]Installation:[/color]
+[LIST=1]
+[*] Install MO or NMM installer, don't even think to ask for support if you install mod manually and its not working. [/*]
+[*] Install all requirements and their dependencies[/*]
+[*] Run FNIS. [/*]
+[*] Finish Helgen, Save, Load, Milk[/*]
+[*] if you get errors or mod not working try to reset mod and disable/enable mod with spell[/*]
+[/LIST]
+
+[img=http://www.comicsbeat.com/wp-content/uploads/2012/11/spoiler2.jpg]
+
+[color=#ff0000]To become Milkmaid:[/color] 
+buy/find and drink lactacid, use milkpumps
+
+[color=#ff0000]Soft linked plugins - not required but supported:[/color]
+[spoiler]
+Dawnguard (adds locations to economy)
+Dragonborn (adds locations to economy)
+HearthFires (adds locations to economy, adds milk conversion into Jug of Milk, which can be used to craft something else from HF)
+RealisticNeedsandDiseases
+Basic Pregnancy Cycle
+[/spoiler]
+
+[color=#ff0000]MCM menu:[/color]
+[spoiler]
+partially ported
+[/spoiler]
+
+[color=#ff0000]Pain system:[/color]
+[spoiler]
+To make your life harder/immersive, mod features pain system.
+When somebody is milked their nipples will hurt and eventually they will become sore and apply exhaustion debuff reducing stamina regeneration and blocking further milking.
+You can remove debuff by sleeping 6+h or drinking lactacid.
+[/spoiler]
+
+[color=#ff0000](De)buffs:[/color]
+[spoiler]
+Currently mod applies these effects (can be disabled in mcm): 
+[color=#0000ff]Well milked buff[/color] - has 25 levels, increases max carry weight by 2 per milkmaid level.
+[color=#ff0000]Unmilked debuff[/color] - has 25 stages, if you don't milk your breasts, they will become bigger and will have negative impact on character stats ((Unmilked debuff level) x 4 OneHanded, TwoHanded, Marksman, Sneak, Pickpocket, CarryWeight, Speed, MP/SP Regen and max Stamina).
+[color=#ff0000]Exhaustion debuff[/color] - reduces stamina regeneration, removed by sleeping 6+ hours or drinking race Milk/Lactacid.
+[color=#ff0000]Mental Exhaustion debuff[/color] - reduces magicka regeneration, removed by sleeping 6+ hours or drinking race Milk/Lactacid.
+[/spoiler]
+
+[color=#ff0000]Milk and food this mod has to offer:[/color]
+[spoiler]
+Immersion mods:
+-RealisticNeedsandDiseases: All Milk, Semen, Cum have moderate decrease thirst, slight decrease hunger, adds empty bottle.
+Cheese and Sweet Rolls - decrease hunger.
+Effects:
+[LIST=1]
+[*] Normal milk (4 tiers): 1(HP/MP/SP) + 1*tier regen for 10 sec [/*]
+[*] Sperm/Cum: male/female - you can get it from milking during boobgasm/orgasm or in milkpump fuck-machine mode for males or masturbating. If drunk by succubus = decrease hunger greatly(RND), if PSQ is installed = raises energy by 10% [/*]
+[*] Special Cheese - crafted with 10 normal milk bottles [/*]
+[*] Special Sweet Roll - crafted with 3 wheat and 1 Sperm/Cum bottle [/*]
+[/LIST]
+	Special Milk you get after milking if milkmaid had boobgasm: 
+[LIST=1]
+[*] Default Race milk (4 tiers): +5HP +5MP +5SP regen + [url=http://www.uesp.net/wiki/Skyrim:Races]Race effects[/url] for 15*tier sec [/*]
+[*] Exotic (Custom) Race milk (4 tiers): +10HP +10MP +10SP regen + 10Elemental resists for 15*tier sec [/*]
+[*] Vampire milk: +10HP +10MP +5SP regen for 30 sec, skill buff: illusion, alternation, speech, destruction, 50% frost resist, Vampire lord transformation if you are vampire, require Dawnguard (in mcm you can enable forced transformation even if you are not vampire, this is probably not safe do at your own risk) [/*]
+[*] Werewolf milk: +10HP +5MP +10SP regen for 30 sec, skill buff: 1h, 2h, block, 50% frost resist, Werewolf transformation if you are werewolf (in mcm you can enable forced transformation even if you are not werewolf, this is probably not safe do at your own risk) [/*]
+[*] Succubus milk: +5HP +15MP +5SP regen for 30 sec, skill buff: illusion, alternation, speech, barter, 50% fire resist (in mcm you can enable AE increase arousal, this is probably safe) [/*]
+[/LIST]
+
+[/spoiler]
+
+[color=#ff0000]Stories:[/color]
+Mod features few flavor stories that are displayed randomly during milking start/end, you can enable/disable them in mcm.
+[spoiler]
+Currently:
+
+1 Story shown when player becomes milkmaid by drinking race Milk/Lactacid
+
+MilkPump:
+[LIST]
+[*]1 story start when player becomes milkmaid, when you use MilkPump [/*]
+[*]1 story end when player becomes milkmaid, when you use MilkPump [/*]
+[*]5 stories randomly displayed at beginning of using milk pump[/*]
+[*]5 stories randomly displayed at ending of using milk pump[/*]
+[/LIST]
+
+Spriggan armor: disabled(no armor support w/o skse)
+[LIST]
+[*]3 stories randomly displayed at beginning[/*]
+[*]3 stories randomly displayed at ending[/*]
+[/LIST]
+
+Hermaeus Moras Caress armor: disabled(no armor support w/o skse)
+[LIST]
+[*]2 stories randomly displayed at beginning[/*]
+[*]2 stories randomly displayed at ending[/*]
+[/LIST]
+
+Living armor: disabled(no armor support w/o skse)
+[LIST]
+[*]3 stories randomly displayed at beginning[/*]
+[*]3 stories randomly displayed at ending[/*]
+[/LIST]
+
+[color=#ffa500]You can write your own stories(who am i kidding) and they might be included in the mod, the requirements are: plain text, ~500 symbols (including spaces) max.
+Texts of stories can be found in script source files(MilkQUEST.psc search for ";Stories"), if you want to correct or translate something.[/color]
+[/spoiler]
+
+[color=#ff0000]NPC Comments:[/color]
+When Milk Maid breasts full and leaking milk, npcs might make comments. By default 10% chance, you can change global variable MME_NPCComments
+
+[color=#ff0000]NPC milking:[/color]
+NPC Milking is disabled by default,
+you can enable it by changing gloval variable MME_NPCMilking to 1,
+do it at your own risk, im not sure if anything can get broken
+
+[color=#ff0000]NPC Dialogues milking:[/color]
+Dialogue starts with "Hey there!"
+You can make npc milkmaid, you need 1 bottle of Lactacid + 1 female npc.
+You can start milking, you/npc need to be milkmaid and have milk.
+
+[color=#ff0000]Supported Armors:[/color]
+[spoiler]
+
+Milking:
+-Milking Cuirass (this one comes with this mod and is equipped during milking, can be crafted at forge)
+[/spoiler]
+
+[color=#ff0000]Known issues:[/color]
+[spoiler]
+MOD DOES NOT SUPPORT FOLLOWER FRAMEWORKS/CUSTOM FOLLOWERS WITH BROKEN AI BEHAVIOR, YOUR FOLLOWERS WONT BE ABLE TO USE/STAY IN MILKPUMPS
+
+Milk leaking from anywhere but nipples, idk how to fix that
+lots of <unknown self>.mme_storage. errors, but everything is working, no idea how to fix
+[/spoiler]
+
+[color=#ff0000]Conflicts:[/color]
+[spoiler]
+
+Might conflict with other mods that:
+[LIST]
+[*]-change locations where Milk Pumps are placed (if you installed Milk Pumps plugin).[/*]
+[*]-change potions/food prices (Economy part will probably be broken).[/*]
+[/LIST]
+[/spoiler]
+
+[color=#ff0000]Permissions:[/color]
+If you repost/share this mod to other sites, you must add link to mods thread and provide descent translation of everything written on this page.
+You are not allowed to post/host/share this mod on cloud storage, torrent sites and file hosting services that:
+-force you to wait 15+ seconds and watch advertisements while "your file being prepared" or buy premium to get file instantly crap.
+-force to buy premium and sms crap.
+-give you money for file downloads/uploads/views/clicks.
+-install adware, crapware, trojans, viruses, miners, etc
+
+[/font][/size]
