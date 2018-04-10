@@ -43,23 +43,6 @@
 								<type name="Optional"/>
 							</typeDescriptor>
 						</plugin>				
-						<plugin name="UNP">
-							<description>
-								<![CDATA[Choose this if you want UNP body Milking Cuirass]]>
-							</description>
-							<image path="Fomod\Screens\UNP.jpg"/>
-							<conditionFlags>
-								<flag name="UNP">Active</flag>
-							</conditionFlags>
-							<files>
-								<folder source="02_Cuirass\UNP" destination=""/>
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>				
-						</plugin>
-					</plugins>   
-				</group>
 				<group name="2_Extra" type="SelectAny">
 					<plugins order="Explicit">			
 						<plugin name="Brown Panty">
