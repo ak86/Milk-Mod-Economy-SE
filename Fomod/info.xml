@@ -1,21 +1,23 @@
 ﻿<fomod>
-  <Name>Milk Mod Economy SSE Scripts Light</Name>
-  <Version>10-04-2018</Version>
+  <Name>Milk Mod Economy SE Scripts Full</Name>
+  <Version>28-05-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
   
-Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
+Requirements:
+Naked body/armor replacer with Belly and Breast nodes(unp?)
+XP32 Maximum Skeleton Special Extended
+Fores New Idles in Skyrim SE
+Sexlab Beta 1.63
 Milk Mod Economy SSE Assets
+Racemenu/Netimmerse Override
 
-Install mod, run fnis, run game, finish helgen, save, enable mod esp, load save.
-you may need to use uninstall spell and then toggle(enable) mod spell for mod to start
-
-This version is intended to work without skse or other mods, therefore its very limited in functionality compared to full mod
-
-NPC MILKING may break npcs, i hadn't done extensive testing, so its disabled by default
-to enable NPC milking use console:
-set MME_NPCMilking to 1
+1)Install mod
+2)Run fnis
+3)Run game
+*If mod doesnt show up - make new save, load save.
+**If that doesnt help - start game with disabled mod esps, finish Helgen/Alternate start save, enable mod esps
 
 
 Dialogue trade:
@@ -69,173 +71,30 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
   
 Dev change log:
 
-	v 10-04-2018
-changed cuirass mesh location to armor\manga
-
-	v 09-04-2018
-You need to Re-run FNIS after updating to this version
-Assets: changed animation names
-Scripts: changed animated objects names
-
-	v 24-02-2018
-fixed mcm maid debug(msgbox debug spamm) page
-added toggle to disable Exhaustion Debuff
-reduced Exhaustion Debuff strength 90%->50%
-added toggle to disable cum bottles production
-added toggle to disable animations play during mobile milking
-added description of fuckmachine toggle
-added toggle to disable 40% milk fullness requirement for mobile milking
-
-	v 25-01-2018
-fixed mcm translation
-disabled few unused mcm options
-
-	v 09-01-2018
-some minor fixes
-fix maid mastery progression counters
-
-	v 03-01-2018
-fix cuirass milking not giving milk
-fix for milkpump animations(feeding, dildo etc)
-
-
-	v 20-12-2017
-fix for incorrect calculation of maximum maid milk
-
-	v 19-12-2017
-enabled breast enlargement/reduction buy dialogues
-fix for multibreast uneqip during milking with cuirass
-
-	v 06-12-2017
-enabled breast enlargement/reduction effects
-
-	v 04-12-2017
-enabled lactacid for maids, again
-
-	v 02-12-2017
-separated mod int 2 parts
-fixed breast enlargement/reduction dialogues, potions still disabled
-
-	v 01-12-2017
-enabled lactacid for maids
-
-	v 27-11-2017
-fixed bug with wellmilked spell milking getting stuck
-
-	v 21-11-2017
-restored skse hotkey functions
+	v 28-05-2018
+fixed potentially lethal health damage drinking breast enlargement potion and triggering multibreast event
+fixed esps: zaz, sandbox, campfire
 	
-	v 15-11-2017
-fix for feeding loop interrupion(now it plays in 1 go)
-added permanent milkpump bound mode for mods(player will be stuck in bound pump untill released by other mod)
-	
-	v 14-11-2017
-fix for mcm bugs
-fix skse debuffs bugs
-fix for milkpumps feeding
+	v 14-05-2018
+added vampire/werewolf/succubus maidlevel based milks, 120+ milks
+renamed editorIds of all milks, so that tey can be filtered into some sense list in ck
+support for SLHP LE/SE
 
-	v 09-11-2017
-finished non debug mcm translation
+	v 13-05-2018
+readded unmilked/milked buffs
+added vampire/werewolf/succubus formlists
+normalized milk weights to 1
+added some fixes to milkslave creation via event
 
-	v 01-11-2017
-added breast scaling
-probably fixed most of mcm
+	v 03-05-2018
+changed milk generation formula = base milk generation*(1 + ((Lactacid * Lactacid) / LactacidMod ))
 
-	v 25-10-2017
-added pregnancy detection for Basic Pregnancy Cycle, EggFactory, BeeingFemale
+	v 28-04-2018
+merged pumps scripts, removed bound script, now it should be safe to switch pump plugins mid game
+changed how milkpump animations called, animations should be more smooth
 
-	v 24-10-2017
-added skse base framework
-added mcm, broken due to lack of translation support
-
-	v 20-10-2017
-ported bodyslide sets, though they seems to get neck gap
-fix not allow "use" of more maid slots than mod actually has
-
-	v 17-10-2017
-fixed esp
-
-	v 14-10-2017
-removed manga body cuirass
-moved unp/cbbe bodies folders
-
-	v 13-10-2017
-disabled breast potions
-
-	v 11-10-2017
-some fixes
-test skse
-
-	v 10-10-2017
-added orgasm sounds
-
-	v 09-10-2017
-restored dialogues for maid milking, since there is no sexlab for SE, initiate self milking
-added moans to milking/ lactacid
-set followers/maids fixed milk production 0.33 per hour
-reduced milking duration  20->5 sec
-added stripping for mobile milking
-added Setunconscious() to prevent npc moving during milking
-
-	v 06-10-2017
-something i forgot =)
-
-	v 03-10-2017
-buffs/debuffs
-enabled maidlvlcap
-
-	v 30-09-2017
-re-added levelling
-
-	v 22-09-2017
-replaced esp futa meshes with normal female armor
-
-	v 20-09-2017
-textures fix for bound milkpumps
-removed crafting of futa cuirass
-removed futa cuirass meshes
-
-	v 14-09-2017
-restored breast potions scripts
-restored dialogues for potions
-
-	v 13-09-2017
-restored lactacid script
-got drunk
-
-	v 11-09-2017
-restored storage script
-
-	v 09-09-2017
-fixed esp(missing milking cups and who knows what else), stupid NMM with its virtual installs
-enabled leaking textures and particle effects
-
-	v 06-09-2017
-drank some milk, resurrected mod
-removed ineed
-cleaned scripts of all skse witchery
-removed most of scripts code
-disabled lactacid, breast inc/dec potion dialogues, since those are useless
-fixed nifs
-added workaround for npc milking and redressing
-increased npc milking duration to 20*rnd(1-4) seconds
-
-	v 04-09-2017
-gave up on mod w/o sse
-
-	v 02-09-2017
-cleaned installer
-
-	v 01-09-2017
-converted milking 6 horny animations
-moved zaz pumps meshes and textures
-removed zaz dependency, milking is now handled by mme
-removed most plugins
-removed integration with most SL mods
-removed skse jsons
-patched esps to work with SSE
-partially reverted rnd to pre json
-updated ineed module
+	v 11-04-2018
+Full mod conversion test
 
  </Description>
 </fomod>

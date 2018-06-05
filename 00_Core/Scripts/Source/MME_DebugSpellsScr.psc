@@ -1,7 +1,7 @@
 Scriptname MME_DebugSpellsScr extends activemagiceffect Hidden
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
-	MilkQUEST MilkQ = Game.GetFormFromFile(0xE209, "MilkMod.esp") as MilkQUEST
+	MilkQUEST MilkQ = Quest.GetQuest("MME_MilkQUEST") as MilkQUEST
 	Actor PlayerRef = Game.Getplayer()
 	
 	if !PlayerRef.HasSpell( MilkQ.MilkModToggle )

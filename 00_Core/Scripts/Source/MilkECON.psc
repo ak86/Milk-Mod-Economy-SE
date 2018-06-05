@@ -114,31 +114,31 @@ bool Function MilkEconMaintenance()
 	debug.Trace("MilkModEconomy ECON market names array resetting")
 	MarketNames = new String[10]
 	MarketNames[0] = "with the Khajiit Caravaneers"
-	MarketNames[1] = "in Dawnstar"
-	MarketNames[2] = "in Falkreath"
-	MarketNames[3] = "in Markarth"
+	MarketNames[1] = "in " + locDawnstar.GetName()
+	MarketNames[2] = "in " + locFalkreath.GetName()
+	MarketNames[3] = "in " + locMarkarth.GetName()
 	MarketNames[4] = "with the Orcish Strongholds"
-	MarketNames[5] = "in Riften"
-	MarketNames[6] = "in Solitude"
-	MarketNames[7] = "in Whiterun"
-	MarketNames[8] = "in Windhelm"
+	MarketNames[5] = "in " + locRiften.GetName()
+	MarketNames[6] = "in " + locSolitude.GetName()
+	MarketNames[7] = "in " + locWhiterun.GetName()
+	MarketNames[8] = "in " + locWindhelm.GetName()
 	MarketNames[9] = "in the province of Solstheim"
 	
 	debug.Trace("MilkModEconomy ECON milk names array resetting")
 	string milk = " Milk"
 	MilkNames = new String[12]
 	MilkNames[0] = "Nothing"
-	MilkNames[1] = "Altmer milk"
-	MilkNames[2] = "Argonian milk"
-	MilkNames[3] = "Bosmer milk"
-	MilkNames[4] = "Breton milk"
-	MilkNames[5] = "Dunmer milk"
-	MilkNames[6] = "Imperial milk"
-	MilkNames[7] = "Khajiit milk"
-	MilkNames[8] = "Nord milk"
-	MilkNames[9] = "Orc milk"
-	MilkNames[10] = "Redguard milk"
-	MilkNames[11] = "Exotic milk"
+	MilkNames[1] = MME_Races.GetAt(0).GetName() + milk
+	MilkNames[2] = MME_Races.GetAt(1).GetName() + milk
+	MilkNames[3] = MME_Races.GetAt(2).GetName() + milk
+	MilkNames[4] = MME_Races.GetAt(3).GetName() + milk
+	MilkNames[5] = MME_Races.GetAt(4).GetName() + milk
+	MilkNames[6] = MME_Races.GetAt(5).GetName() + milk
+	MilkNames[7] = MME_Races.GetAt(6).GetName() + milk
+	MilkNames[8] = MME_Races.GetAt(7).GetName() + milk
+	MilkNames[9] = MME_Races.GetAt(8).GetName() + milk
+	MilkNames[10] = MME_Races.GetAt(9).GetName() + milk
+	MilkNames[11] = "Exotic" + milk
 	return true
 EndFunction
 
@@ -224,6 +224,32 @@ EndFunction
 ;----C-O-R-E----F-U-N-C-T-I-O-N-S----\
 ;---------------------------------------------------------------------------------------------------------------------
 
+Function InitiateTradeToContainer(int MilkCount, int boobgasmcount, Actor akActor, Objectreference MilkBarrel)
+
+	Potion NfinalPotion = none
+	int NfinalQty = 0
+
+	Potion BfinalPotion = none
+	int BfinalQty = 0
+	
+	if boobgasmcount > 0 && MME_Storage.getMaidLevel(akActor) == 0
+		boobgasmcount = 0
+	endif
+	
+	if (milkCount - boobgasmcount) > 0
+		NfinalPotion = GetMilkType(milkCount, 0, akActor) as Potion
+		NfinalQty = GetMilkQty(milkCount-boobgasmcount)
+	endif
+	
+	if boobgasmcount > 0
+		BfinalPotion = GetMilkType(boobgasmcount, boobgasmcount, akActor) as Potion
+		BfinalQty = boobgasmcount
+	endif
+
+	KeepMilkContainer(NfinalPotion, NfinalQty, 0, MilkBarrel)
+	KeepMilkContainer(BfinalPotion, BfinalQty, 0, MilkBarrel)
+endFunction
+
 Function InitiateTrade(int MilkCount, int boobgasmcount, Actor akActor, bool mobilemilking)
 	Race maidRace = akActor.GetActorBase().GetRace()
 	int marketIndex = GetMarketIndexFromLocation(akActor.GetCurrentLocation())
@@ -241,9 +267,9 @@ Function InitiateTrade(int MilkCount, int boobgasmcount, Actor akActor, bool mob
 	int BbaseTrade = 0
 	int BmilkTax = 0
 	
-	;if boobgasmcount > 0 && MME_Storage.getMaidLevel(akActor) == 0
-	;	boobgasmcount = 0
-	;endif
+	if boobgasmcount > 0 && MME_Storage.getMaidLevel(akActor) == 0
+		boobgasmcount = 0
+	endif
 	
 	if (milkCount - boobgasmcount) > 0
 		NfinalPotion = GetMilkType(milkCount, 0, akActor) as Potion
@@ -426,6 +452,12 @@ Function SellMilk(int marketIndex, int baseTrade, int milkTax, int upkeep, Actor
 	endif
 endFunction
 
+Function KeepMilkContainer(Potion finalPotion, int finalQty, int upkeep, objectreference MilkBarrel)
+	if finalQty > 0
+		MilkBarrel.AddItem(finalPotion, finalQty)
+	endif
+endFunction
+
 Function KeepMilk(Potion finalPotion, int finalQty, int upkeep, Actor akActor)
 	if finalQty > 0
 		akActor.AddItem(finalPotion, finalQty)
@@ -471,8 +503,8 @@ EndFunction
 
 Form Function GetMilkType(int milkCount, int boobgasmcount, Actor milkMaid)
 	Race maidRace = milkMaid.GetActorBase().GetRace()
-	Int MaidLevel = 0;MME_Storage.getMaidLevel(milkMaid)
-	Float MilkMax = 4;MME_Storage.getMilkMaximum(milkMaid)
+	Int MaidLevel = MME_Storage.getMaidLevel(milkMaid)
+	Float MilkMax = MME_Storage.getMilkMaximum(milkMaid)
 	
 	if MilkQ.MilkQC.MME_SimpleMilkPotions
 		boobgasmcount = boobgasmcount + milkCount
@@ -480,11 +512,11 @@ Form Function GetMilkType(int milkCount, int boobgasmcount, Actor milkMaid)
 	
 	if boobgasmcount > 0
 		;mod detection || mcm manual override
-		if MilkQ.isSuccubus(milkMaid); || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsSuccubus") == 1
+		if MilkQ.isSuccubus(milkMaid) || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsSuccubus") == 1
 			return MilkQ.MME_Milk_Succubus.GetAt(0)
-		elseif MilkQ.isVampire(milkMaid); || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsVampire") == 1
+		elseif MilkQ.isVampire(milkMaid) || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsVampire") == 1
 			return MilkQ.MME_Milk_Vampire.GetAt(0)
-		elseif MilkQ.isWerewolf(milkMaid); || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsWerewolf") == 1
+		elseif MilkQ.isWerewolf(milkMaid) || StorageUtil.GetIntValue(milkMaid,"MME.MilkMaid.IsWerewolf") == 1
 			return MilkQ.MME_Milk_Werewolf.GetAt(0)
 
 ;drugs and alcohol
@@ -554,7 +586,7 @@ int Function CalculateBaseTrade(Potion finalPotion, int finalQty)
 		return 0
 	endif
 	int baseTrade = finalPotion.GetGoldValue() * finalQty
-	Float Level = 0;StorageUtil.GetFloatValue(none,"MME.Progression.Level")
+	Float Level = StorageUtil.GetFloatValue(none,"MME.Progression.Level")
 
 	; Formula below kind of conforms to the way selling does in game, ignoring potions/enchants
 	float priceFactor
@@ -633,42 +665,42 @@ int Function CalculateServiceTaxHelper(int varEco, int basePayout)
 EndFunction
 
 int Function GetMarketIndexFromLocation(Location marketLocation)
-	string locName = marketLocation
+	string locName = marketLocation.GetName()
 	
 	;milkpump locations
 	;inn locations
-	if locName == locDawnstar || locName == locDawnstarSanctuary\
-	|| locName == DawnstarWindpeakInnLocation
+	if locName == locDawnstar.GetName() || locName == locDawnstarSanctuary.GetName()\
+	|| locName == DawnstarWindpeakInnLocation.GetName()
 		return 1
-	elseif locName == locFalkreath\
-	|| locName == FalkreathDeadMansDrinkLocation
+	elseif locName == locFalkreath.GetName()\
+	|| locName == FalkreathDeadMansDrinkLocation.GetName()
 		return 2
-	elseif locName == locMarkarth || locName == locOldHroldan || locName == locKarthwasten\
-	|| locName == OldHroldanInnLocation || locName == MarkarthSilverBloodInnLocation
+	elseif locName == locMarkarth.GetName() || locName == locOldHroldan.GetName() || locName == locKarthwasten.GetName()\
+	|| locName == OldHroldanInnLocation.GetName() || locName == MarkarthSilverBloodInnLocation.GetName()
 		return 3
-	elseif locName == locMorKhazgur || locName == locDushnikhYal || locName == locNarzulbur || locName == locLargashbur
+	elseif locName == locMorKhazgur.GetName() || locName == locDushnikhYal.GetName() || locName == locNarzulbur.GetName() || locName == locLargashbur.GetName()
 		return 4
-	elseif locName == locRiften || locName == locShorsStone\
-	|| locName == RiftenBeeandBarbLocation || locName == IvarsteadVilemyrInnLocation
+	elseif locName == locRiften.GetName() || locName == locShorsStone.GetName()\
+	|| locName == RiftenBeeandBarbLocation.GetName() || locName == IvarsteadVilemyrInnLocation.GetName()
 		return 5
-	elseif locName == locSolitude || locName == locDragonBridge || locName == locMorthal\
-	|| locName == DragonBridgeFourShieldsTavernLocation || locName == MorthalMoorsideInnLocation || locName == SolitudeWinkingSkeeverLocation
+	elseif locName == locSolitude.GetName() || locName == locDragonBridge.GetName() || locName == locMorthal.GetName()\
+	|| locName == DragonBridgeFourShieldsTavernLocation.GetName() || locName == MorthalMoorsideInnLocation.GetName() || locName == SolitudeWinkingSkeeverLocation.GetName()
 		return 6
-	elseif locName == locWhiterun || locName == locRiverwood || locName == locRorikstead\
-	|| locName == RiverwoodSleepingGiantInnLocation || locName == WhiterunBanneredMareLocation || locName == RoriksteadFrostfruitInnLocation
+	elseif locName == locWhiterun.GetName() || locName == locRiverwood.GetName() || locName == locRorikstead.GetName()\
+	|| locName == RiverwoodSleepingGiantInnLocation.GetName() || locName == WhiterunBanneredMareLocation.GetName() || locName == RoriksteadFrostfruitInnLocation.GetName()
 		return 7
-	elseif locName == locWindhelm || locName == locWinterhold || locName == locCollegeofWinterhold || locName == locKynesgrove\
-	|| locName == WindhelmCandlehearthHallLocation || locName == WindhelmNewGnisisCornerclubLocation || locName == WinterholdTheFrozenHearthLocation || locName == KynesgroveBraidwoodInnLocation
+	elseif locName == locWindhelm.GetName() || locName == locWinterhold.GetName() || locName == locCollegeofWinterhold.GetName() || locName == locKynesgrove.GetName()\
+	|| locName == WindhelmCandlehearthHallLocation.GetName() || locName == WindhelmNewGnisisCornerclubLocation.GetName() || locName == WinterholdTheFrozenHearthLocation.GetName() || locName == KynesgroveBraidwoodInnLocation.GetName()
 		return 8
 		
 	;DLC
-	elseif locName == locHeljarchenHall || locName == locWindstadManor										;MilkQ.Plugin_HearthFires
+	elseif locName == locHeljarchenHall.GetName() || locName == locWindstadManor.GetName()										;MilkQ.Plugin_HearthFires
 		return 1
-	elseif locName == locLakeviewManor 																				;MilkQ.Plugin_HearthFires
+	elseif locName == locLakeviewManor.GetName() 																				;MilkQ.Plugin_HearthFires
 		return 2
-	elseif locName == locFortDawnguard || locName == locDayspringCanyon										;MilkQ.Plugin_Dawnguard
+	elseif locName == locFortDawnguard.GetName() || locName == locDayspringCanyon.GetName()										;MilkQ.Plugin_Dawnguard
 		return 5
-	elseif locName == locRavenRock || locName == locSkaalVillage || locName == locTelMithryn		;MilkQ.Plugin_Dragonborn
+	elseif locName == locRavenRock.GetName() || locName == locSkaalVillage.GetName() || locName == locTelMithryn.GetName()		;MilkQ.Plugin_Dragonborn
 		return 9
 
 	;none of above, returning khajit caravan
