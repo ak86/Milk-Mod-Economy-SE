@@ -1,5 +1,5 @@
 ﻿<fomod>
-  <Name>Milk Mod Economy SSE Scripts</Name>
+  <Name>Milk Mod Economy SSE Light Scripts</Name>
   <Version>10-04-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
@@ -8,8 +8,10 @@
 Requirements: Naked body replacer, XP32 Maximum Skeleton, Fores New Idles in Skyrim
 Milk Mod Economy SSE Assets
 
-Install mod, run fnis, run game, save, load save.
+Install mod, run fnis, run game, finish helgen, save, enable mod esp, load save.
 you may need to use uninstall spell and then toggle(enable) mod spell for mod to start
+
+This version is intended to work without skse or other mods, therefore its very limited in functionality compared to full mod
 
 NPC MILKING may break npcs, i hadn't done extensive testing, so its disabled by default
 to enable NPC milking use console:
