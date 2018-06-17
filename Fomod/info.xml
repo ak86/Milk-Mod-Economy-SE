@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>05-06-2018</Version>
+  <Version>16-06-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
@@ -70,6 +70,10 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 16-06-2018
+fix sandbox, zaz esps
+added zaz sandbox
 
 	v 05-06-2018
 fix for SSE Nio
