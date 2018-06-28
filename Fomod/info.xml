@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>16-06-2018</Version>
+  <Version>26-06-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
@@ -9,7 +9,7 @@ Requirements:
 Naked body/armor replacer with Belly and Breast nodes
 XP32 Maximum Skeleton Special Extended
 Fores New Idles in Skyrim SE
-Sexlab Beta 1.63
+Sexlab 1.63 Beta
 Milk Mod Economy SSE Assets
 Racemenu/Netimmerse Override
 
@@ -70,6 +70,15 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 26-06-2018
+khajiits will now give 1 free lactacid after breastfeeding them
+added sexlabnostip to xTITS armor
+changed so final payout inc all fees cant be lower than 0 when selling milk
+lowered economy max tax 80%->75%, so you'll get atleast something, when selling at bad prices
+fixed double upkeep calculation in dialogue trade
+added taxes display to mcm
+disabled debug "Mode" message after milking
 
 	v 16-06-2018
 fix sandbox, zaz esps

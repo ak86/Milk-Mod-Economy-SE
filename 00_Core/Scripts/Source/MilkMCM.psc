@@ -426,44 +426,44 @@ endfunction
 function Page_Market()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 		AddHeaderOption(MilkQ.MilkE.locWhiterun.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoWhiterun, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoWhiterun + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoWhiterun) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandWhiterun], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption(MilkQ.MilkE.locMarkarth.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoMarkarth, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoMarkarth + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoWhiterun) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandMarkarth], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption(MilkQ.MilkE.locSolitude.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoSolitude, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoSolitude + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoSolitude) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandSolitude], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption(MilkQ.MilkE.locDawnstar.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoDawnstar, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoDawnstar + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoDawnstar) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandDawnstar], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption(MilkQ.MilkE.locWindhelm.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoWindhelm, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoWindhelm + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoWindhelm) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandWindhelm], OPTION_FLAG_DISABLED)
 
 	SetCursorPosition(1)
 		AddHeaderOption(MilkQ.MilkE.locRiften.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoRiften, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoRiften + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoRiften) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandRiften], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption(MilkQ.MilkE.locFalkreath.GetName())
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoFalkreath, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoFalkreath + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoFalkreath) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandFalkreath], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption("$MME_MENU_PAGE_Milk_Market_Information_Orcish_Strongholds")
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoOrc, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoOrc + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoOrc) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandOrc], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption("$MME_MENU_PAGE_Milk_Market_Information_Khajiit_Caravaneers")
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoCaravan, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoCaravan + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoCaravan) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandCaravan], OPTION_FLAG_DISABLED)
 			AddEmptyOption()
 		AddHeaderOption("$MME_MENU_PAGE_Milk_Market_Information_Solstheim")
-			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoMorrowind, OPTION_FLAG_DISABLED)
+			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Market", MilkQ.MilkE.MilkEcoMorrowind + " (" + (MilkQ.MilkE.CalculateServiceTaxHelper(MilkQ.MilkE.MilkEcoMorrowind) * 100) as int + ")", OPTION_FLAG_DISABLED)
 			AddTextOption("$MME_MENU_PAGE_Milk_Market_Information_Demand", RaceMilk[MilkQ.MilkE.MilkDemandMorrowind], OPTION_FLAG_DISABLED)
 endfunction
 
@@ -2490,10 +2490,10 @@ state Milking_MilkWithZaZMoMSuctionCups_Toggle
 			MilkQ.MilkNaked = true
 			MilkQ.MilkWithZaZMoMSuctionCups = false
 			toggleVal = "$MME_MENU_PAGE_Milking_H3_S5.1"
-		elseif !MilkQ.MilkWithZaZMoMSuctionCups
-			MilkQ.MilkNaked = false
-			MilkQ.MilkWithZaZMoMSuctionCups = true
-			toggleVal = "$MME_MENU_PAGE_Milking_H3_S5.2"
+;		elseif !MilkQ.MilkWithZaZMoMSuctionCups
+;			MilkQ.MilkNaked = false
+;			MilkQ.MilkWithZaZMoMSuctionCups = true
+;			toggleVal = "$MME_MENU_PAGE_Milking_H3_S5.2"
 		else
 			MilkQ.MilkNaked = false
 			MilkQ.MilkWithZaZMoMSuctionCups = false

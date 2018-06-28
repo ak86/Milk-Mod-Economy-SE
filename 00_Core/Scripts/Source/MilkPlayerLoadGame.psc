@@ -147,8 +147,16 @@ Event OnSexLabStart(String _eventName, String _args, Float _argc, Form _sender)
 		if MilkQ.MILKmaid.Find(actors[0]) != -1\
 		&& !actors[0].HasSpell( MilkQ.BeingMilkedPassive )\
 		&& (actors[0].GetLeveledActorBase().GetSex() == 1 || (actors[0].GetLeveledActorBase().GetSex() == 0 && MilkQ.MaleMaids))
+			if MME_Storage.getMilkCurrent(actors[0]) >= 1
+
+				actors[1].equipitem(MilkQ.MME_Milk_Basic.GetAt(0), true, true)
+				
+				;khajiit gives lactacid
+				if actors[1].GetLeveledActorBase().GetRace() == Game.GetFormFromFile(0x13745, "Skyrim.esm") as Race
+					actors[0].additem(MilkQ.MME_Util_Potions.GetAt(0), 1)
+				endif
+			endif
 			MilkQ.Milking(actors[0], 0, 4, 0)
-			actors[1].equipitem(MilkQ.MME_Milk_Basic.GetAt(0), true, true)
 		endif
 	endif
 EndEvent

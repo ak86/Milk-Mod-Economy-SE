@@ -1982,7 +1982,7 @@ Function MilkingCycle(Actor akActor, int i, int Mode, int MilkingType, objectref
 			Debug.SendAnimationEvent(akActor,"IdleForceDefaultState")
 		endif
 		
-		debug.Notification(Mode + " Mode.")
+		;debug.Notification(Mode + " Mode.")
 		if bottles > 0
 			if IsMilkMaid == true
 				LevelCheck()

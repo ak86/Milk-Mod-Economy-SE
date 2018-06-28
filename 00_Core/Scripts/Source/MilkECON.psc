@@ -180,6 +180,7 @@ Event OnUpdateGameTime()
 		if MilkQ.EconFlag == True
 			RegisterForSingleUpdateGameTimeAt(9.0)
 			MilkEcoCycle()
+			;StorageUtil.SetIntValue(Game.Getplayer(), "MME.MilkMaid.FreeLactacid", MilkQ.MME_Storage.getMaidLevel(Game.Getplayer()) as int)
 		endif
 	else
 		Debug.Trace("MilkModEconomy OnUpdateGameTime divnull is "+divnull+", mod is broken, have a nice day!")
@@ -422,33 +423,26 @@ Function SellMilkDialogue(int marketIndex, int baseTrade, int milkTax, int upkee
 	if finalPayout < 0
 		finalPayout = 0
 	endif
-	akActor.AddItem(Gold, finalPayout)
 	
-	if upkeep > 0
-		akActor.RemoveItem(Gold, upkeep, true)
-		Debug.Notification("You've made " + finalPayout + " gold. You've been charged " + upkeep + " gold for upkeep.")
-	else
-		Debug.Notification("You've made " + finalPayout + " gold.")
-	endif
+	akActor.AddItem(Gold, finalPayout)
+	Debug.Notification("You've made " + finalPayout + " gold.")
 	UpdateEconomy(marketIndex, baseTrade)
 endFunction
 
 Function SellMilk(int marketIndex, int baseTrade, int milkTax, int upkeep, Actor akActor)
-	UpdateEconomy(marketIndex, baseTrade)
-
-	int finalPayout = baseTrade - milkTax
+	int finalPayout = baseTrade
+	finalPayout = baseTrade - milkTax - upkeep
 	if finalPayout < 0
-		upkeep = upkeep - finalPayout
 		finalPayout = 0
 	endif
-	if MilkQ.PlayerREF.GetDistance(akActor) < 250
+
+	if MilkQ.PlayerREF == akActor
 		MilkQ.PlayerREF.AddItem(Gold, finalPayout)
-		MilkQ.PlayerREF.RemoveItem(Gold, upkeep, true)
-		Debug.Notification("You've made " + finalPayout + " gold. You've been charged " + upkeep + " gold for upkeep.")
+		Debug.Notification("You've made " + finalPayout + " gold.")
 	else
 		akActor.AddItem(Gold, finalPayout)
-		akActor.RemoveItem(Gold, upkeep, true)
 	endif
+	UpdateEconomy(marketIndex, baseTrade)
 endFunction
 
 Function KeepMilkContainer(Potion finalPotion, int finalQty, int upkeep, objectreference MilkBarrel)
@@ -695,45 +689,70 @@ int Function CalculateServiceTax(int marketIndex, int basePayout)
 	int fee = 0
 
 	if marketIndex == 0
-		fee = CalculateServiceTaxHelper(MilkEcoCaravan, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoCaravan, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoCaravan)) as int
 	elseif marketIndex == 1
-		fee = CalculateServiceTaxHelper(MilkEcoDawnstar, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoDawnstar, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoDawnstar)) as int
 	elseif marketIndex == 2
-		fee = CalculateServiceTaxHelper(MilkEcoFalkreath, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoFalkreath, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoFalkreath)) as int
 	elseif marketIndex == 3
-		fee = CalculateServiceTaxHelper(MilkEcoMarkarth, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoMarkarth, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoMarkarth)) as int
 	elseif marketIndex == 4
-		fee = CalculateServiceTaxHelper(MilkEcoOrc, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoOrc, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoOrc)) as int
 	elseif marketIndex == 5
-		fee = CalculateServiceTaxHelper(MilkEcoRiften, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoRiften, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoRiften)) as int
 	elseif marketIndex == 6
-		fee = CalculateServiceTaxHelper(MilkEcoSolitude, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoSolitude, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoSolitude)) as int
 	elseif marketIndex == 7
-		fee = CalculateServiceTaxHelper(MilkEcoWhiterun, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoWhiterun, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoWhiterun)) as int
 	elseif marketIndex == 8
-		fee = CalculateServiceTaxHelper(MilkEcoWindhelm, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoWindhelm, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoWindhelm)) as int
 	elseif marketIndex == 9
-		fee = CalculateServiceTaxHelper(MilkEcoMorrowind, basePayout)
+		;fee = CalculateServiceTaxHelper(MilkEcoMorrowind, basePayout)
+		fee = (basePayout * CalculateServiceTaxHelper(MilkEcoMorrowind)) as int
 	else
 		; Catch all - fee is fixed at 50%
 		fee = basePayout / 2
 	endif
-
 	return fee
 EndFunction
 
-int Function CalculateServiceTaxHelper(int varEco, int basePayout)
-	float fBasePayout = basePayout as float
-	int fee = 0
+;int Function CalculateServiceTaxHelper(int varEco, int basePayout)
+;	float fBasePayout = basePayout as float
+;	int fee = 0
+;	
+;	if varEco < 0
+;		fee = (fBasePayout * 0.75) as int
+;	elseif varEco < 200/(MilkQ.TimesMilkedMult/divnull)
+;		fee = (fBasePayout * 0.50) as int
+;	elseif varEco < 400/(MilkQ.TimesMilkedMult/divnull)
+;		fee = (fBasePayout * 0.25) as int
+;	elseif varEco < 600/(MilkQ.TimesMilkedMult/divnull)
+;		fee = (fBasePayout * 0) as int
+;	endif
+;	
+;	return fee
+;EndFunction
+
+float Function CalculateServiceTaxHelper(int varEco)
+	float fee = 0
 	
 	if varEco < 0
-		fee = (fBasePayout * 0.8) as int
+		fee = 0.75
 	elseif varEco < 200/(MilkQ.TimesMilkedMult/divnull)
-		fee = (fBasePayout * 0.3) as int
+		fee = 0.50
 	elseif varEco < 400/(MilkQ.TimesMilkedMult/divnull)
-		fee = (fBasePayout * 0.2) as int
+		fee = 0.25
 	elseif varEco < 600/(MilkQ.TimesMilkedMult/divnull)
-		fee = (fBasePayout * 0.1) as int
+		fee = 0
 	endif
 	
 	return fee
