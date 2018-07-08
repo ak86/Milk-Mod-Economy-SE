@@ -831,17 +831,17 @@ Function MilkCycle(Actor akActor, int t)
 		elseif akActor == PlayerREF && !ArmorStrippingDisabled && Sexlab.IsStrippable(maidArmor)
 			if !(maidArmor == TITS4	|| maidArmor == TITS6 || maidArmor == TITS8 || DDi.IsMilkingBlocked_Suit(akActor))
 				;heavy armor	
-				if MilkCnt > 12 && maidArmor.HasKeyword(Game.GetFormFromFile(0x6BBD2, "Skyrim.esm") as keyword)
-					Debug.Notification("Your breasts are too big to fit into your armor")
+				if MilkCnt > 4 && maidArmor.HasKeyword(Game.GetFormFromFile(0x6BBD2, "Skyrim.esm") as keyword)
+					Debug.Notification("Your breasts are too big to fit into your heavy armor")
 					akActor.UnEquipItem(maidArmor)
 				endif
 				;light armor	
 				if MilkCnt > 8 && maidArmor.HasKeyword(Game.GetFormFromFile(0x6BBD3, "Skyrim.esm") as keyword)
-					Debug.Notification("Your breasts are too big to fit into your armor")
+					Debug.Notification("Your breasts are too big to fit into your light armor")
 					akActor.UnEquipItem(maidArmor)
 				endif
 				;clothes
-				if MilkCnt > 4
+				if MilkCnt > 12
 					Debug.Notification("Your breasts are too big to fit into your clothes")
 					akActor.UnEquipItem(maidArmor)
 				endif
@@ -2096,22 +2096,21 @@ Function PostMilk(Actor akActor)
 	;Spell Breasts_Spell = Game.GetFormFromFile(0x7D36A, "milkmodnew.esp") as Spell
 	Float BreastsSize_Node = NetImmerse.GetNodeScale(akActor, "NPC L Breast", false)
 
-	if akActor.HasSpell(MME_Spells_Buffs.GetAt(1) as Spell)
-		akActor.RemoveSpell(MME_Spells_Buffs.GetAt(1) as Spell)
-	endif
-	if akActor.HasSpell(MME_Spells_Buffs.GetAt(2) as Spell)
-		akActor.RemoveSpell(MME_Spells_Buffs.GetAt(2) as Spell)
-	endif
-	if akActor.HasSpell(MME_Spells_Buffs.GetAt(0) as Spell)
-		akActor.RemoveSpell(MME_Spells_Buffs.GetAt(0) as Spell)
-	endif
-		
 	if MilkQC.Buffs != true
 		if akActor.HasSpell(MME_Spells_Buffs.GetAt(3) as Spell)
 			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(3) as Spell)
 		endif
 		if akActor.HasSpell(MME_Spells_Buffs.GetAt(4) as Spell)
 			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(4) as Spell)
+		endif
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(1) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(1) as Spell)
+		endif
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(2) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(2) as Spell)
+		endif
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(0) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(0) as Spell)
 		endif
 	else
 		;Unmilked debuff
@@ -2137,6 +2136,19 @@ Function PostMilk(Actor akActor)
 			(MME_Spells_Buffs.GetAt(0) as Spell).SetNthEffectMagnitude(effectCount, BreastsSize_Node * (1+ akActor.GetLeveledActorBase().GetWeight()/100))
 			effectCount = effectCount + 1
 		endwhile
+		
+		;remove spells
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(1) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(1) as Spell)
+		endif
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(2) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(2) as Spell)
+		endif
+		if akActor.HasSpell(MME_Spells_Buffs.GetAt(0) as Spell)
+			akActor.RemoveSpell(MME_Spells_Buffs.GetAt(0) as Spell)
+		endif
+		
+		;re-add spells
 		akActor.AddSpell(MME_Spells_Buffs.GetAt(0) as Spell, false)
 
 		if MilkCnt / MilkMax <= 0.4
@@ -2203,7 +2215,7 @@ Function MilkCycleMSG(Actor akActor)
 		elseif MilkCnt as int == (MilkMax - 2)
 			debug.Notification(akActor.GetLeveledActorBase().GetName() + "'s nipples swell and tingle.")
 		else
-			debug.Notification(akActor.GetLeveledActorBase().GetName() + "'s" + MilkMsgStage[MilkCnt as int])
+			debug.Notification(akActor.GetLeveledActorBase().GetName() + "'s" + MilkMsgStage[PapyrusUtil.ClampInt(MilkCnt as int, 1, 22)])
 		endif
 	EndIf
 EndFunction
