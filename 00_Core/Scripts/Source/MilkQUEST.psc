@@ -573,7 +573,6 @@ Function MilkCycle(Actor akActor, int t)
 	
 	Float LactacidMod = StorageUtil.GetFloatValue(none,"MME.LactacidMod", missing = 10)
 	Float LactacidCnt = MME_Storage.getLactacidCurrent(akActor)
-	Float LactacidFactor = (1 + ((LactacidCnt * LactacidCnt) / LactacidMod ))
 	Float MaidMilkGen = StorageUtil.GetFloatValue(akActor,"MME.MilkMaid.MilkGen")
 	Float BreastBase = MME_Storage.getBreastsBasevalue(akActor)
 	Float BreastBaseMod = MME_Storage.getBreastsBaseadjust(akActor)
@@ -583,6 +582,7 @@ Function MilkCycle(Actor akActor, int t)
 	Int   BreastRows = MME_Storage.getBreastRows(akActor)
 	Int MaidLevelProgressionAffectsMilkGen = StorageUtil.GetIntValue(none,"MME.MaidLevelProgressionAffectsMilkGen", missing = 0)
 	Int MaidLevel
+	Float LactacidFactor
 	
 	Bool IsMilkingArmor = false
 	
@@ -634,20 +634,24 @@ Function MilkCycle(Actor akActor, int t)
 	endif
 	
 	;cycle to generate milk, raise/lower generation
-	If (FixedMilkGen || (akActor != PlayerREF && FixedMilkGen4Followers ))												;cheats fixed 0.3 milk prod * arousal
+	If (FixedMilkGen || (akActor != PlayerREF && FixedMilkGen4Followers ))												;fixed milkproduction
 		MilkTick = 1/3 * BreastRows * (1 + SLA.GetActorArousal(akActor)/100) * MilkProdMod/100 * t
-		if LactacidDecayRate > 0																						;reduce lactacid
+		if LactacidDecayRate > 0																						;reduce lactacid, for purpose of belly decrease
 			LactacidCnt -= LactacidDecayRate
 		elseif LactacidDecayRate == 0
 			LactacidCnt -= MilkTick
 		endif
-	else
+		if LactacidCnt < 0
+			LactacidCnt = 0
+		endif
+	else																												;dynamic milk production
 		Int tmod1 = t
 		while tmod1 != 0
 			MaidLevel = MME_Storage.getMaidLevel(akActor)
+			LactacidFactor = ((LactacidCnt * LactacidCnt) / LactacidMod / PapyrusUtil.ClampInt(MaidLevel, 1, MaidLevel + 1))
 			if LactacidCnt > 0\
 			|| (isPregnant(akActor) && (MilkCnt + MilkTick < MilkMax))
-			;|| ((MaidMilkGen > 0 || isPregnant(akActor)) && (MilkCnt + MilkTick < MilkMax))							;increase milk generation
+			;|| ((MaidMilkGen > 0 || isPregnant(akActor)) && (MilkCnt + MilkTick < MilkMax))							;has lactacid or pregnant and not full, increase milk generation
 				if MaidLevelProgressionAffectsMilkGen == 0 || MaidLevel == 0
 					MaidMilkGen += MilkGenValue * BreastRows
 				else
@@ -655,21 +659,19 @@ Function MilkCycle(Actor akActor, int t)
 				endif
 			elseif isPregnant(akActor)																					;no lactacid, pregnant, full of milk
 				;do nothing
-			else																										;reduce milk generation
+			else																										;no lactacid, not pregnant, reduce milk generation
 				MaidMilkGen -= (MilkGenValue * BreastRows)/ (1 + MaidLevelProgressionAffectsMilkGen * MaidLevel)
 				if MaidMilkGen < 0
 					MaidMilkGen = 0
 				endif
 			endif
 			
-			if MaidMilkGen > 0																							;dynamic milk prod
-				MilkTickCycle = (BoobTick + MaidMilkGen)/3/10															;basic formula
-				MilkTickCycle *= LactacidFactor																			;apply LactacidFactor
-	;			if LactacidCnt > 0																						;we have lactacid, apply LactacidMod
-	;				MilkTickCycle *= LactacidMod
-	;			endif
-				
-				MilkTick += MilkTickCycle * (1 + SLA.GetActorArousal(akActor)/100) * MilkProdMod/100
+			float LactacidCycle = 0
+			if MaidMilkGen > 0
+				MilkTickCycle = (BoobTick + MaidMilkGen)/3/10 * (1 + SLA.GetActorArousal(akActor)/100) * MilkProdMod/100;basic milkproduction formula
+				LactacidCycle = PapyrusUtil.ClampFloat(MilkTickCycle * LactacidFactor, 0, LactacidCnt)					;calculate LactacidFactor bonus milkproduction
+				MilkTickCycle = MilkTickCycle + LactacidCycle															;basic+bonus
+				MilkTick += MilkTickCycle																				;final milk production
 			endif
 			
 			;actor weight scaling, disabled cuz it can cause neck seam
@@ -682,7 +684,10 @@ Function MilkCycle(Actor akActor, int t)
 			if LactacidDecayRate > 0																					;reduce lactacid
 				LactacidCnt -= LactacidDecayRate
 			elseif LactacidDecayRate == 0
-				LactacidCnt -= MilkTickCycle
+				LactacidCnt -= LactacidCycle
+			endif
+			if LactacidCnt < 0
+				LactacidCnt = 0
 			endif
 			
 			tmod1 -= 1
@@ -699,10 +704,6 @@ Function MilkCycle(Actor akActor, int t)
 	Paintick = MilkTick + MilkMax/10
 	MilkCnt += MilkTick
 	PainCnt -= paintick
-	
-	if LactacidCnt < 0
-		LactacidCnt = 0
-	endif
 	
 	if PainCnt < 0
 		PainCnt = 0
