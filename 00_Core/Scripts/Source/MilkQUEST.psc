@@ -635,7 +635,8 @@ Function MilkCycle(Actor akActor, int t)
 	
 	;cycle to generate milk, raise/lower generation
 	If (FixedMilkGen || (akActor != PlayerREF && FixedMilkGen4Followers ))												;fixed milkproduction
-		MilkTick = 1/3 * BreastRows * (1 + SLA.GetActorArousal(akActor)/100) * MilkProdMod/100 * t
+		MilkTick = 1.0 / 3 * BreastRows * (1 + SLA.GetActorArousal(akActor)/100) * MilkProdMod/100 * t
+		Debug.Notification(" FixedMilkGen: " + MilkTick + " BreastRows: " + BreastRows + " t: " + t + " MilkProdMod: " + MilkProdMod + " sla: " + (1 + SLA.GetActorArousal(akActor)/100))
 		if LactacidDecayRate > 0																						;reduce lactacid, for purpose of belly decrease
 			LactacidCnt -= LactacidDecayRate
 		elseif LactacidDecayRate == 0

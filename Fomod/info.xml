@@ -1,23 +1,23 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>10-07-2018</Version>
+  <Version>17-07-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
   
 Requirements:
-Naked body/armor replacer with Belly and Breast nodes
+Naked body/armor replacer with Belly and Breast nodes (hint: UNP)
 XP32 Maximum Skeleton Special Extended
 Fores New Idles in Skyrim SE
 Sexlab 1.63 Beta
 Milk Mod Economy SSE Assets
-Racemenu/Netimmerse Override
+Racemenu/Netimmerse Override + SKEE
 
-1)Install mod
-2)Run fnis
-3)Run game
-*If mod doesnt show up - make new save, load save.
-**If that doesnt help - start game with disabled mod esps, finish Helgen/Alternate start save, enable mod esps
+1)Finish Helgen
+2)Install mod
+3)Run fnis
+4)Run game
+*If mod/mcm doesnt show up - make new save, load save.
 
 
 Dialogue trade:
@@ -70,6 +70,10 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 17-07-2018
+fixed fixed milk production
+split zaz patch into sandbox/no sandbox versions
 
 	v 10-07-2018
 corrected milk generation with lactacid formula

@@ -374,7 +374,7 @@ function Page_Settings()
 		
 	SetCursorPosition(1)
 		AddHeaderOption("$MME_MENU_PAGE_Settings_H4")
-			AddMenuOptionST("Difficulty_Menu", "", Preset[PresetIndex])
+			AddMenuOptionST("Difficulty_Menu", "Difficulty:", Preset[PresetIndex])
 			int i = 1
 			while i <= 10
 				AddTextOption("Times milked for level " + i + ":", i*MilkQ.TimesMilkedMult as int, OPTION_FLAG_DISABLED)	
@@ -566,7 +566,7 @@ function Page_MilkMaidDebug()
 				float MilkTick = 0
 				float FinalMilkTick = 0
 				if MilkQ.FixedMilkGen || (MaidlistA[MaidIndex] != MilkQ.PlayerREF && MilkQ.FixedMilkGen4Followers)
-					MilkTick = 1/3 * BreastRows * (1 + MilkQ.SLA.GetActorArousal(MaidlistA[MaidIndex])/100) * MilkQ.MilkProdMod/100
+					MilkTick = 1.0/3 * BreastRows * (1 + MilkQ.SLA.GetActorArousal(MaidlistA[MaidIndex])/100) * MilkQ.MilkProdMod/100
 					FinalMilkTick = MilkTick
 				else
 					MilkTick = (MME_Storage.getBreastsBasevalue(MaidlistA[MaidIndex]) + MaidMilkGen)/3/10 * (1 + MilkQ.SLA.GetActorArousal(MaidlistA[MaidIndex])/100) * MilkQ.MilkProdMod/100
