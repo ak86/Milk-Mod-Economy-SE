@@ -137,12 +137,14 @@ endEvent
 Event OnSexLabStart(String _eventName, String _args, Float _argc, Form _sender)
 	MilkQUEST MilkQ = Quest.GetQuest("MME_MilkQUEST") as MilkQUEST
 	Actor[] actors = MilkQ.SexLab.HookActors(_args)											;0 - actor being sucked, 1 - actor sucking
+	sslBaseAnimation animation = MilkQ.SexLab.HookAnimation(_args)
 	String  animName = getAnimName(_args)
 
 	if (animName == "3J Straight Breastfeeding"\
 	|| animName == "3J Lesbian Breastfeeding"\
 	|| animName == "3Jiou Breastfeeding Lesbian"\
-	|| animName == "3Jiou Breastfeeding Straight")
+	|| animName == "3Jiou Breastfeeding Straight")\
+	|| animation.HasTag("Breastfeeding")
 
 		if MilkQ.MILKmaid.Find(actors[0]) != -1\
 		&& !actors[0].HasSpell( MilkQ.BeingMilkedPassive )\

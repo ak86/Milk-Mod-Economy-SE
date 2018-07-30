@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>17-07-2018</Version>
+  <Version>30-07-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
@@ -70,6 +70,10 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 30-07-2018
+changed belly scaling, so it wont cause conflicts if using old netimmerse option
+animations with "Breastfeeding" tag should cause milking, that is if you find such animations or add tag yourself
 
 	v 17-07-2018
 fixed fixed milk production

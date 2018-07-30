@@ -1079,10 +1079,8 @@ Function CurrentSize(Actor akActor)
 		
 		if BellyScale
 			LactacidCnt = MME_Storage.getLactacidCurrent(akActor)
-		else
-			LactacidCnt = 0
+			BodyMod.SetNodeScale(akActor, "NPC Belly", 1 + LactacidCnt / 2, isFemale)
 		endif
-		BodyMod.SetNodeScale(akActor, "NPC Belly", 1 + LactacidCnt / 2, isFemale)
 	endif
 EndFunction
 
