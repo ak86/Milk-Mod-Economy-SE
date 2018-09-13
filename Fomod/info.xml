@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>02-09-2018</Version>
+  <Version>13-09-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
@@ -22,7 +22,7 @@ Racemenu/Netimmerse Override + SKEE
 
 Dialogue trade:
 Khajiits merchants:
--buy all milk
+-buy normal and race milk
 -trade Lactacid for milk
 Orc merchants(wise woman):
 -buy normal and race milk
@@ -38,6 +38,7 @@ Fences:
 Farmers:
 -buy normal milk
 -sell Lactacid for 100g
+
 
 Milk Pump locations:
 DawnStar
@@ -70,6 +71,17 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 13-09-2018
+fixed lactacid reduction formula, was too low
+fixed dialogues not recognising racial vampire/ww/succubus milks
+fixed incorrect milk value when dialogue trading multiple different milks
+increased x2 economy milk price, so its usually more profitable to sell through dialogues than straight to vendor
+changed khajiits to only buy/trade normal/race milk
+increased MMEs leveled list chance to 100%, so if game rolls MME item, one of them will spawn
+added lactacid and WW,V,S milks to alchemist vendors
+added generic milks to npcs
+*chance to roll MME milks is not 100% as there many other items
 
 	v 02-09-2018
 changes to installer script
