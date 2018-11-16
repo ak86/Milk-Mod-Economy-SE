@@ -331,6 +331,21 @@
 								<type name="Optional"/>
 							</typeDescriptor>
 						</plugin>				
+						<plugin name="Fancy">
+							<description>
+								<![CDATA[All inclusive 5* milking barns by EinarrTheRed, not bound in towns, bound in orc strongholds]]>
+							</description>
+							<image path="Fomod\Screens\MPFancy.jpg"/>
+							<conditionFlags>
+								<flag name="MilkumpFancy">Fancy</flag>
+							</conditionFlags>
+							<files>
+								<folder source="03_Extra\MilkPumps Fancy" destination=""/>
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>				
+						</plugin>				
 					</plugins>   
 				</group>
 			</optionalFileGroups>
