@@ -1,6 +1,6 @@
 ﻿<fomod>
   <Name>Milk Mod Economy SE Scripts Full</Name>
-  <Version>18-11-2018</Version>
+  <Version>01-12-2018</Version>
   <Author>Ed86</Author>
   <Website>https://www.patreon.com/Ed86</Website>
   <Description>
@@ -71,6 +71,14 @@ You can place Milk Pump anywhere you want, try might even affect with economy or
 
   
 Dev change log:
+
+	v 01-12-2018
+fixed no animation playing during mobile milking
+removed some mcm debug spells
+added volumetric breast scaling
+increased max mcm slider for boobmilk/level scaling to 1
+increased breast debuff to breast size
+fix to breastsizemod form breast potions
 
 	v 18-11-2018
 fix for leveling up removing milk above milkmax when it shouldnt
